@@ -60,5 +60,29 @@ public class Result {
         this.message = message;
     }
 
-    public Result() {};
+    public Result(boolean isSuccess, Integer code, String message, Object data) {
+        this.isSuccess = isSuccess;
+        this.code = code;
+        this.message = message;
+        this.data = data;
+    }
+
+    public Result() {
+        this.isSuccess = true;
+        this.code = StatusCode.OK;
+        this.message = "操作成功";
+    };
+
+    public Result(String message) {
+        this.isSuccess = true;
+        this.code = StatusCode.OK;
+        this.message = message;
+    };
+
+    public Result(Object data) {
+        this.isSuccess = true;
+        this.code = StatusCode.OK;
+        this.message = "操作成功";
+        this.data = data;
+    };
 }

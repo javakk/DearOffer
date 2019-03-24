@@ -17,7 +17,7 @@ import java.net.NetworkInterface;
  * @Author: javakk
  * @Date: 2019/3/23 16:38
  */
-public class IdGenerator {
+public class IdWorker {
     /**
      * 时间起始标记点，作为基准，一般取系统的最近时间（一旦确定不能变动）
      */
@@ -71,7 +71,7 @@ public class IdGenerator {
      */
     private final long dataCenterId;
 
-    public IdGenerator(){
+    public IdWorker(){
         this.dataCenterId = getDataCenterId(MAX_DATA_CENTER_ID);
         this.workerId = getMaxWorkerId(dataCenterId, MAX_WORKER_ID);
     }
@@ -81,7 +81,7 @@ public class IdGenerator {
      * @param dataCenterId
      *            序列号
      */
-    public IdGenerator(long workerId, long dataCenterId) {
+    public IdWorker(long workerId, long dataCenterId) {
         if (workerId > MAX_WORKER_ID || workerId < 0) {
             throw new IllegalArgumentException(String.format("worker Id can't be greater than %d or less than 0", MAX_WORKER_ID));
         }

@@ -7,7 +7,7 @@ import java.util.List;
  * @Author: javakk
  * @Date: 2019/3/23 16:32
  */
-public class PageRequest<T> {
+public class PageResult<T> {
     /**
      * 总数
      */
@@ -33,7 +33,7 @@ public class PageRequest<T> {
         this.rows = rows;
     }
 
-    public PageRequest(Long total, List<T> rows) {
+    public PageResult(Long total, List<T> rows) {
         this.total = total;
         this.rows = rows;
     }
