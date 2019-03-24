@@ -35,15 +35,6 @@ public class DictionaryService {
     private IdWorker idWorker;
 
     /**
-     * 查询全部列表
-     * @return
-     */
-    public List<Dictionary> findAll() {
-        return dictionaryDao.findAll();
-    }
-
-
-    /**
      * 条件查询+分页
      * @param whereMap
      * @param page
@@ -74,31 +65,6 @@ public class DictionaryService {
      */
     public Dictionary findById(String id) {
         return dictionaryDao.findById(id).get();
-    }
-
-    /**
-     * 增加
-     * @param dictionary
-     */
-    public void add(Dictionary dictionary) {
-        dictionary.setId( idWorker.nextId()+"" );
-        dictionaryDao.save(dictionary);
-    }
-
-    /**
-     * 修改
-     * @param dictionary
-     */
-    public void update(Dictionary dictionary) {
-        dictionaryDao.save(dictionary);
-    }
-
-    /**
-     * 删除
-     * @param id
-     */
-    public void deleteById(String id) {
-        dictionaryDao.deleteById(id);
     }
 
     /**

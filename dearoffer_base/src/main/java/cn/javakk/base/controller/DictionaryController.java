@@ -25,16 +25,6 @@ public class DictionaryController {
     @Autowired
     private DictionaryService dictionaryService;
 
-
-    /**
-     * 查询全部数据
-     * @return
-     */
-    @RequestMapping(method= RequestMethod.GET)
-    public Result findAll(){
-        return new Result(dictionaryService.findAll());
-    }
-
     /**
      * 根据ID查询
      * @param id ID
@@ -69,34 +59,4 @@ public class DictionaryController {
         return new Result(dictionaryService.findSearch(searchMap));
     }
 
-    /**
-     * 增加
-     * @param dictionary
-     */
-    @RequestMapping(method=RequestMethod.POST)
-    public Result add(@RequestBody Dictionary dictionary  ){
-        dictionaryService.add(dictionary);
-        return new Result(true,StatusCode.OK,"增加成功");
-    }
-
-    /**
-     * 修改
-     * @param dictionary
-     */
-    @RequestMapping(value="/{id}",method= RequestMethod.PUT)
-    public Result update(@RequestBody Dictionary dictionary, @PathVariable String id ){
-        dictionary.setId(id);
-        dictionaryService.update(dictionary);
-        return new Result(true,StatusCode.OK,"修改成功");
-    }
-
-    /**
-     * 删除
-     * @param id
-     */
-    @RequestMapping(value="/{id}",method= RequestMethod.DELETE)
-    public Result delete(@PathVariable String id ){
-        dictionaryService.deleteById(id);
-        return new Result(true,StatusCode.OK,"删除成功");
-    }
 }

@@ -11,6 +11,7 @@
     <modules>
         <module>dearoffer_common</module>
         <module>dearoffer_user</module>
+        <module>dearoffer_auth</module>
     </modules>
 
     <parent>
