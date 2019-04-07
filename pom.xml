@@ -15,6 +15,7 @@
         <module>dearoffer_company</module>
         <module>dearoffer_interview_experience</module>
         <module>dearoffer_comment</module>
+        <module>dearoffer_position</module>
     </modules>
 
     <parent>
