@@ -18,6 +18,7 @@
         <module>dearoffer_position</module>
         <module>dearoffer_resume</module>
         <module>dearoffer_salary</module>
+        <module>dearoffer_push</module>
     </modules>
 
     <parent>
