@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="dearoffer_auth" />
         <module name="dearoffer_base" />
+        <module name="dearoffer_comment" />
         <module name="dearoffer_common" />
         <module name="dearoffer_company" />
         <module name="dearoffer_interview_experience" />
@@ -18,6 +19,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="dearoffer_auth" options="-parameters" />
       <module name="dearoffer_base" options="-parameters" />
+      <module name="dearoffer_comment" options="-parameters" />
       <module name="dearoffer_common" options="-parameters" />
       <module name="dearoffer_company" options="-parameters" />
       <module name="dearoffer_interview_experience" options="-parameters" />
