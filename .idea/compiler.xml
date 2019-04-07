@@ -13,6 +13,8 @@
         <module name="dearoffer_company" />
         <module name="dearoffer_interview_experience" />
         <module name="dearoffer_position" />
+        <module name="dearoffer_resume" />
+        <module name="dearoffer_salary" />
       </profile>
     </annotationProcessing>
   </component>
@@ -26,6 +28,8 @@
       <module name="dearoffer_interview_experience" options="-parameters" />
       <module name="dearoffer_parent" options="-parameters" />
       <module name="dearoffer_position" options="-parameters" />
+      <module name="dearoffer_resume" options="-parameters" />
+      <module name="dearoffer_salary" options="-parameters" />
     </option>
   </component>
 </project>

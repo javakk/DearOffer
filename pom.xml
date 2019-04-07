@@ -16,6 +16,8 @@
         <module>dearoffer_interview_experience</module>
         <module>dearoffer_comment</module>
         <module>dearoffer_position</module>
+        <module>dearoffer_resume</module>
+        <module>dearoffer_salary</module>
     </modules>
 
     <parent>
