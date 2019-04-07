@@ -11,7 +11,6 @@ import javax.persistence.criteria.Root;
 
 import cn.javakk.base.dao.DictionaryDao;
 import cn.javakk.base.entity.Dictionary;
-import cn.javakk.base.entity.DictionaryField;
 import cn.javakk.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +27,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class DictionaryService {
 
+    private static final String PARENT_ID = "parent_id";
+    private static final String ID = "id";
+    private static final String TAG = "tag";
+    private static final String CODE = "code";
     @Autowired
     private DictionaryDao dictionaryDao;
 
@@ -80,19 +83,19 @@ public class DictionaryService {
             public Predicate toPredicate(Root<Dictionary> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> predicateList = new ArrayList<Predicate>();
                 // id
-                if (searchMap.get(DictionaryField.ID)!=null && !"".equals(searchMap.get(DictionaryField.ID))) {
+                if (searchMap.get(ID)!=null && !"".equals(searchMap.get(ID))) {
                     predicateList.add(cb.equal(root.get("id").as(String.class), "%"+(String)searchMap.get("id")+"%"));
                 }
                 // 父id
-                if (searchMap.get(DictionaryField.PARENT_ID)!=null && !"".equals(searchMap.get(DictionaryField.PARENT_ID))) {
+                if (searchMap.get(PARENT_ID)!=null && !"".equals(searchMap.get(PARENT_ID))) {
                     predicateList.add(cb.equal(root.get("parent_id").as(String.class), "%"+(String)searchMap.get("parent_id")+"%"));
                 }
                 // 来源tag
-                if (searchMap.get(DictionaryField.TAG)!=null && !"".equals(searchMap.get(DictionaryField.TAG))) {
+                if (searchMap.get(TAG)!=null && !"".equals(searchMap.get(TAG))) {
                     predicateList.add(cb.equal(root.get("tag").as(String.class), "%"+(String)searchMap.get("tag")+"%"));
                 }
                 // 字典代码
-                if (searchMap.get(DictionaryField.CODE)!=null && !"".equals(searchMap.get(DictionaryField.CODE))) {
+                if (searchMap.get(CODE)!=null && !"".equals(searchMap.get(CODE))) {
                     predicateList.add(cb.equal(root.get("code").as(String.class), "%"+(String)searchMap.get("code")+"%"));
                 }
 

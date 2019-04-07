@@ -73,12 +73,6 @@ public class Result {
         this.message = "操作成功";
     };
 
-    public Result(String message) {
-        this.isSuccess = true;
-        this.code = StatusCode.OK;
-        this.message = message;
-    };
-
     public Result(Object data) {
         this.isSuccess = true;
         this.code = StatusCode.OK;
