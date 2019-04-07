@@ -10,8 +10,9 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>dearoffer_common</module>
-        <module>dearoffer_user</module>
         <module>dearoffer_auth</module>
+        <module>dearoffer_base</module>
+        <module>dearoffer_company</module>
     </modules>
 
     <parent>

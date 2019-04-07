@@ -1,10 +1,9 @@
-package cn.javakk.base.controller;
+package cn.javakk.controller;
 
-import cn.javakk.base.entity.Dictionary;
-import cn.javakk.base.service.DictionaryService;
+import cn.javakk.entity.Dictionary;
+import cn.javakk.service.DictionaryService;
 import cn.javakk.entity.PageResult;
 import cn.javakk.entity.Result;
-import cn.javakk.entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;

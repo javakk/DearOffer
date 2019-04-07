@@ -9,6 +9,7 @@
         <module name="dearoffer_auth" />
         <module name="dearoffer_base" />
         <module name="dearoffer_common" />
+        <module name="dearoffer_company" />
       </profile>
     </annotationProcessing>
   </component>
@@ -17,6 +18,7 @@
       <module name="dearoffer_auth" options="-parameters" />
       <module name="dearoffer_base" options="-parameters" />
       <module name="dearoffer_common" options="-parameters" />
+      <module name="dearoffer_company" options="-parameters" />
       <module name="dearoffer_parent" options="-parameters" />
     </option>
   </component>

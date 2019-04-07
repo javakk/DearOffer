@@ -1,4 +1,4 @@
-package cn.javakk.base.entity;
+package cn.javakk.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

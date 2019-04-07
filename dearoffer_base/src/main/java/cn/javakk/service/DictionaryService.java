@@ -1,4 +1,4 @@
-package cn.javakk.base.service;
+package cn.javakk.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,8 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import cn.javakk.base.dao.DictionaryDao;
-import cn.javakk.base.entity.Dictionary;
+import cn.javakk.dao.DictionaryDao;
+import cn.javakk.entity.Dictionary;
 import cn.javakk.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

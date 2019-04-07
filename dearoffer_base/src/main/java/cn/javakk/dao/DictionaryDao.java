@@ -1,11 +1,9 @@
-package cn.javakk.base.dao;
+package cn.javakk.dao;
 
-import cn.javakk.base.entity.Dictionary;
+import cn.javakk.entity.Dictionary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * @Author: javakk

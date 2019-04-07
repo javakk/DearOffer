@@ -1,4 +1,4 @@
-package cn.javakk.base;
+package cn.javakk;
 
 import cn.javakk.util.IdWorker;
 import org.springframework.boot.SpringApplication;
