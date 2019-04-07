@@ -10,6 +10,7 @@
         <module name="dearoffer_base" />
         <module name="dearoffer_common" />
         <module name="dearoffer_company" />
+        <module name="dearoffer_interview_experience" />
       </profile>
     </annotationProcessing>
   </component>
@@ -19,6 +20,7 @@
       <module name="dearoffer_base" options="-parameters" />
       <module name="dearoffer_common" options="-parameters" />
       <module name="dearoffer_company" options="-parameters" />
+      <module name="dearoffer_interview_experience" options="-parameters" />
       <module name="dearoffer_parent" options="-parameters" />
     </option>
   </component>

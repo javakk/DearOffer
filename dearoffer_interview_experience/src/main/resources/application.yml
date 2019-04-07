@@ -1,9 +1,9 @@
 server:
-  port: 9003
+  port: 9004
 
 spring:
   application:
-    name: dearoffer-company
+    name: dearoffer-interview-experience
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://192.168.230.129:3306/offer?characterEncoding=utf-8
