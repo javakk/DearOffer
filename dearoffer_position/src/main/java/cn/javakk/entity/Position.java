@@ -89,6 +89,9 @@ public class Position implements Serializable{
 	 * 来源1爬虫2填写
 	 */
 	private Integer source;
+
+	private Long pageView;
+	private Long appliedCount;
 	private Integer status;
 	private java.util.Date createTime;
 	private java.util.Date modifyTime;
@@ -251,5 +254,19 @@ public class Position implements Serializable{
 	}
 
 
-	
+	public Long getPageView() {
+		return pageView;
+	}
+
+	public void setPageView(Long pageView) {
+		this.pageView = pageView;
+	}
+
+	public Long getAppliedCount() {
+		return appliedCount;
+	}
+
+	public void setAppliedCount(Long appliedCount) {
+		this.appliedCount = appliedCount;
+	}
 }

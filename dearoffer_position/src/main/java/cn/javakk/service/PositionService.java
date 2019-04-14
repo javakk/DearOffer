@@ -1,23 +1,20 @@
 package cn.javakk.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
 
+import cn.javakk.dao.AppliedInfoDao;
+import cn.javakk.entity.AppliedInfo;
 import cn.javakk.entity.Position;
+import cn.javakk.util.DateUtil;
 import cn.javakk.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +38,10 @@ public class PositionService {
 	
 	@Autowired
 	private IdWorker idWorker;
+
+	@Autowired
+	private AppliedInfoDao appliedInfoDao;
+
 
 	/**
 	 * 查询全部列表
@@ -145,4 +146,25 @@ public class PositionService {
 
 	}
 
+	/**
+	 * 申请职位
+	 * @param positionId
+	 * @param userId
+	 */
+    public void apply(String positionId, String userId) {
+		Optional<Position> option = positionDao.findById(positionId);
+		if (option.isPresent()) {
+			Position positionDO = option.get();
+			positionDO.setAppliedCount(positionDO.getAppliedCount() + 1);
+			positionDao.save(positionDO);
+
+			AppliedInfo appliedInfo = new AppliedInfo();
+			appliedInfo.setId(idWorker.nextId() + "");
+			appliedInfo.setUserId(userId);
+			appliedInfo.setPositionId(positionId);
+			appliedInfo.setCreateTime(DateUtil.getNow());
+			appliedInfo.setStatus(1);
+			appliedInfoDao.save(appliedInfo);
+		}
+	}
 }

@@ -61,7 +61,7 @@ public class CommentController {
 		Page<Comment> pageList = commentService.findSearch(companyId, page, size);
 		return  new Result(true,StatusCode.OK,"查询成功",  new PageResult<Comment>(pageList.getTotalElements(), pageList.getContent()) );
 	}
-	
+
 	/**
 	 * 发布评论
 	 * @param comment

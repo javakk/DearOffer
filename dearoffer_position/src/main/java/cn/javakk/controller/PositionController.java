@@ -1,19 +1,14 @@
 package cn.javakk.controller;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.javakk.entity.PageResult;
-import cn.javakk.entity.Position;
-import cn.javakk.entity.Result;
-import cn.javakk.entity.StatusCode;
+import cn.javakk.entity.*;
+import cn.javakk.service.AppliedInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.*;
 
 import cn.javakk.service.PositionService;
 
@@ -30,16 +25,51 @@ public class PositionController {
 	@Autowired
 	private PositionService positionService;
 
+	@Autowired
+	private AppliedInfoService appliedInfoService;
+
+	@Autowired
+	private RedisTemplate redisTemplate;
+
 	/**
 	 * 根据ID查询
 	 * @param id ID
 	 * @return
 	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.GET)
+	@GetMapping(value="/{id}")
 	public Result findById(@PathVariable String id){
-		return new Result(true,StatusCode.OK,"查询成功",positionService.findById(id));
+		Position position = positionService.findById(id);
+		// TODO：记录点击量
+		String userId = "00001";
+		if (position != null) {
+			redisTemplate.opsForList().rightPush("position:view:" + id, userId);
+		}
+		return new Result(true,StatusCode.OK,"查询成功", position);
 	}
 
+
+	/**
+	 * 申请职位
+	 * @param id
+	 */
+	@PutMapping(value="/{id}")
+	public Result update(@PathVariable String id){
+		String userId = "00001";
+		// 查询是否已申请
+		Map searchMap = new HashMap<String, Object>(2);
+		searchMap.put("userId", userId);
+		searchMap.put("positionId", id);
+
+		List<AppliedInfo> appliedInfos = appliedInfoService.findSearch(searchMap);
+
+		if (appliedInfos != null && appliedInfos.size() > 0) {
+			return new Result(false, StatusCode.ERROR, "已经安排上了");
+		}
+
+		positionService.apply(id, userId);
+
+		return new Result(true,StatusCode.OK,"申请成功");
+	}
 
 	/**
 	 * 分页+多条件查询
@@ -48,51 +78,10 @@ public class PositionController {
 	 * @param size 页大小
 	 * @return 分页结果
 	 */
-	@RequestMapping(value="/search/{page}/{size}",method=RequestMethod.POST)
+	@PostMapping(value="/search/{page}/{size}")
 	public Result findSearch(@RequestBody Map searchMap , @PathVariable int page, @PathVariable int size){
+		// TODO:处理UserID是否一致
 		Page<Position> pageList = positionService.findSearch(searchMap, page, size);
-		return  new Result(true,StatusCode.OK,"查询成功",  new PageResult<Position>(pageList.getTotalElements(), pageList.getContent()) );
+		return new Result(true,StatusCode.OK,"查询成功",  new PageResult<Position>(pageList.getTotalElements(), pageList.getContent()) );
 	}
-
-	/**
-     * 根据条件查询
-     * @param searchMap
-     * @return
-     */
-    @RequestMapping(value="/search",method = RequestMethod.POST)
-    public Result findSearch( @RequestBody Map searchMap){
-        return new Result(true,StatusCode.OK,"查询成功",positionService.findSearch(searchMap));
-    }
-	
-	/**
-	 * 增加
-	 * @param position
-	 */
-	@RequestMapping(method=RequestMethod.POST)
-	public Result add(@RequestBody Position position  ){
-		positionService.add(position);
-		return new Result(true,StatusCode.OK,"增加成功");
-	}
-	
-	/**
-	 * 修改
-	 * @param position
-	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
-	public Result update(@RequestBody Position position, @PathVariable String id ){
-		position.setId(id);
-		positionService.update(position);		
-		return new Result(true,StatusCode.OK,"修改成功");
-	}
-	
-	/**
-	 * 删除
-	 * @param id
-	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
-	public Result delete(@PathVariable String id ){
-		positionService.deleteById(id);
-		return new Result(true,StatusCode.OK,"删除成功");
-	}
-	
 }
