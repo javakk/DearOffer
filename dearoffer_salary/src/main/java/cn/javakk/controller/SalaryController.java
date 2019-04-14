@@ -8,6 +8,7 @@ import cn.javakk.entity.Salary;
 import cn.javakk.entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +30,9 @@ public class SalaryController {
 
 	@Autowired
 	private SalaryService salaryService;
+
+	@Autowired
+	private RedisTemplate redisTemplate;
 
 	/**
 	 * 根据ID查询
@@ -65,34 +69,30 @@ public class SalaryController {
     }
 	
 	/**
-	 * 增加
+	 * 发布
 	 * @param salary
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public Result add(@RequestBody Salary salary  ){
 		salaryService.add(salary);
-		return new Result(true,StatusCode.OK,"增加成功");
+		return new Result(true,StatusCode.OK,"发布成功");
 	}
-	
+
 	/**
-	 * 修改
-	 * @param salary
-	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
-	public Result update(@RequestBody Salary salary, @PathVariable String id ){
-		salary.setId(id);
-		salaryService.update(salary);		
-		return new Result(true,StatusCode.OK,"修改成功");
-	}
-	
-	/**
-	 * 删除
+	 * 可信度修改
 	 * @param id
+	 * @param agree
+	 * @return
 	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
-	public Result delete(@PathVariable String id ){
-		salaryService.deleteById(id);
-		return new Result(true,StatusCode.OK,"删除成功");
+	@RequestMapping(value="/{id}",method= RequestMethod.POST)
+	public Result update(@PathVariable String id, Boolean agree){
+		String userId = "00001";
+		String credibilityKey = "salary:credibility:" + id;
+		if (redisTemplate.opsForSet().isMember(credibilityKey, userId)) {
+			return new Result(false, StatusCode.OK, "已经回馈过");
+		}
+		salaryService.updateCredibility(id, agree);
+		redisTemplate.opsForSet().add(credibilityKey, userId);
+		return new Result(true,StatusCode.OK,"操作成功");
 	}
-	
 }

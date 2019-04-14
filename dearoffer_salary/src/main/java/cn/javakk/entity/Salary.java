@@ -3,6 +3,7 @@ package cn.javakk.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 /**
  * 实体类
@@ -40,7 +41,7 @@ public class Salary implements Serializable{
 	/**
 	 * 可信度
 	 */
-	private Float credibility;
+	private Integer credibility;
 	/**
 	 * 学历字典
 	 */
@@ -69,7 +70,9 @@ public class Salary implements Serializable{
 	private java.util.Date createTime;
 	private java.util.Date modifyTime;
 
-	
+	@Transient
+	private Float credibilityPercent;
+
 	public String getId() {		
 		return id;
 	}
@@ -112,10 +115,10 @@ public class Salary implements Serializable{
 		this.detail = detail;
 	}
 
-	public Float getCredibility() {		
+	public Integer getCredibility() {
 		return credibility;
 	}
-	public void setCredibility(Float credibility) {
+	public void setCredibility(Integer credibility) {
 		this.credibility = credibility;
 	}
 
@@ -183,5 +186,7 @@ public class Salary implements Serializable{
 	}
 
 
-	
+	public Float getCredibilityPercent() {
+		return credibility * 1.0F / (pageView + 1) / 100;
+	}
 }

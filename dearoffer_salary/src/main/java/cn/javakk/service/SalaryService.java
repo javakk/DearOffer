@@ -1,9 +1,6 @@
 package cn.javakk.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -13,6 +10,7 @@ import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Selection;
 
 import cn.javakk.entity.Salary;
+import cn.javakk.util.DateUtil;
 import cn.javakk.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -93,6 +91,9 @@ public class SalaryService {
 	 */
 	public void add(Salary salary) {
 		salary.setId( idWorker.nextId()+"" );
+		salary.setCreateTime(DateUtil.getNow());
+		salary.setCredibility(50);
+		salary.setStatus(1);
 		salaryDao.save(salary);
 	}
 
@@ -102,14 +103,6 @@ public class SalaryService {
 	 */
 	public void update(Salary salary) {
 		salaryDao.save(salary);
-	}
-
-	/**
-	 * 删除
-	 * @param id
-	 */
-	public void deleteById(String id) {
-		salaryDao.deleteById(id);
 	}
 
 	/**
@@ -155,4 +148,14 @@ public class SalaryService {
 
 	}
 
+
+	public void updateCredibility(String id, Boolean agree) {
+		Optional<Salary> option = salaryDao.findById(id);
+		if (option.isPresent()) {
+			Salary salaryDO = option.get();
+			Integer optionCount = agree ? 1 : -1;
+			salaryDO.setCredibility(salaryDO.getCredibility() + optionCount);
+			salaryDao.save(salaryDO);
+		}
+	}
 }
