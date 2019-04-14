@@ -37,6 +37,7 @@ public class CompanyController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.GET)
 	public Result findById(@PathVariable String id){
+		// TODO:调用其他微服务整合公司信息
 		return new Result(true,StatusCode.OK,"查询成功",companyService.findById(id));
 	}
 
