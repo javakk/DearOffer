@@ -1,4 +1,5 @@
 package cn.javakk.controller;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import cn.javakk.entity.StatusCode;
 import cn.javakk.service.InterviewExperienceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +31,22 @@ public class InterviewExperienceController {
 
 	@Autowired
 	private InterviewExperienceService interviewExperienceService;
+	@Autowired
+	private RedisTemplate redisTemplate;
+
+	/**
+	 * 根据公司id展示
+	 * @param companyId
+	 * @return
+	 */
+	@RequestMapping(value="/company/{companyId}/{page}/{size}",method= RequestMethod.GET)
+	public Result findByCompany(@PathVariable String companyId, @PathVariable int page, @PathVariable int size){
+		Map searchMap = new HashMap<String, Object> (1);
+		Page<InterviewExperience> pageList = interviewExperienceService.findSearch(searchMap, page, size);
+		searchMap.put("companyId", companyId);
+		return new Result(true,StatusCode.OK,"查询成功",new PageResult<InterviewExperience>(pageList.getTotalElements(), pageList.getContent()));
+	}
+
 
 	/**
 	 * 根据ID查询
@@ -53,16 +71,6 @@ public class InterviewExperienceController {
 		Page<InterviewExperience> pageList = interviewExperienceService.findSearch(searchMap, page, size);
 		return  new Result(true,StatusCode.OK,"查询成功",  new PageResult<InterviewExperience>(pageList.getTotalElements(), pageList.getContent()) );
 	}
-
-	/**
-     * 根据条件查询
-     * @param searchMap
-     * @return
-     */
-    @RequestMapping(value="/search",method = RequestMethod.POST)
-    public Result findSearch( @RequestBody Map searchMap){
-        return new Result(true,StatusCode.OK,"查询成功",interviewExperienceService.findSearch(searchMap));
-    }
 	
 	/**
 	 * 增加
@@ -70,29 +78,29 @@ public class InterviewExperienceController {
 	 */
 	@RequestMapping(method=RequestMethod.POST)
 	public Result add(@RequestBody InterviewExperience interviewExperience) {
+		// TODO:记录userId
 		interviewExperienceService.add(interviewExperience);
 		return new Result(true,StatusCode.OK,"增加成功");
 	}
 	
 	/**
-	 * 修改
-	 * @param interviewExperience
-	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
-	public Result update(@RequestBody InterviewExperience interviewExperience, @PathVariable String id ){
-		interviewExperience.setId(id);
-		interviewExperienceService.update(interviewExperience);
-		return new Result(true,StatusCode.OK,"修改成功");
-	}
-	
-	/**
-	 * 删除
+	 * 点赞
 	 * @param id
 	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
-	public Result delete(@PathVariable String id ){
-		interviewExperienceService.deleteById(id);
-		return new Result(true,StatusCode.OK,"删除成功");
+	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
+	public Result update(@PathVariable String id ){
+		// TODO:userId变更
+		String userId = "000";
+		// Redis键前缀
+		String likedKey = "interview:liked:" + id;
+		if ( redisTemplate.opsForSet().isMember(likedKey, userId)) {
+			return new Result(false, StatusCode.ERROR, "您已经赞过");
+		}
+
+		interviewExperienceService.updateLikedCount(id);
+		redisTemplate.opsForSet().add(likedKey, userId);
+		return new Result(true,StatusCode.OK,"点赞成功");
+		
 	}
 	
 }

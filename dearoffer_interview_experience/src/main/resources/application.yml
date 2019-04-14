@@ -12,3 +12,8 @@ spring:
   jpa:
     database: mysql
     show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  redis:
+    host: 192.168.230.129

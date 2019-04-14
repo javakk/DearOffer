@@ -1,9 +1,6 @@
 package cn.javakk.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -11,6 +8,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import cn.javakk.entity.InterviewExperience;
+import cn.javakk.util.DateUtil;
 import cn.javakk.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,15 +36,6 @@ public class InterviewExperienceService {
 	@Autowired
 	private IdWorker idWorker;
 
-	/**
-	 * 查询全部列表
-	 * @return
-	 */
-	public List<InterviewExperience> findAll() {
-		return interviewExperienceDao.findAll();
-	}
-
-	
 	/**
 	 * 条件查询+分页
 	 * @param whereMap
@@ -77,7 +66,12 @@ public class InterviewExperienceService {
 	 * @return
 	 */
 	public InterviewExperience findById(String id) {
-		return interviewExperienceDao.findById(id).get();
+		Optional<InterviewExperience> option = interviewExperienceDao.findById(id);
+		if (option.isPresent()) {
+			return option.get();
+
+		}
+		return null;
 	}
 
 	/**
@@ -86,23 +80,10 @@ public class InterviewExperienceService {
 	 */
 	public void add(InterviewExperience interviewExperience) {
 		interviewExperience.setId( idWorker.nextId()+"" );
+		interviewExperience.setCreateTime(DateUtil.getNow());
+		interviewExperience.setLikeCount(0L);
+		interviewExperience.setStatus(1);
 		interviewExperienceDao.save(interviewExperience);
-	}
-
-	/**
-	 * 修改
-	 * @param interviewExperience
-	 */
-	public void update(InterviewExperience interviewExperience) {
-		interviewExperienceDao.save(interviewExperience);
-	}
-
-	/**
-	 * 删除
-	 * @param id
-	 */
-	public void deleteById(String id) {
-		interviewExperienceDao.deleteById(id);
 	}
 
 	/**
@@ -133,4 +114,12 @@ public class InterviewExperienceService {
 
 	}
 
+    public void updateLikedCount(String id) {
+		Optional<InterviewExperience> option = interviewExperienceDao.findById(id);
+		if (option.isPresent()) {
+			InterviewExperience interviewExperienceDO = option.get();
+			interviewExperienceDO.setLikeCount(interviewExperienceDO.getLikeCount() + 1);
+			interviewExperienceDao.save(interviewExperienceDO);
+		}
+	}
 }

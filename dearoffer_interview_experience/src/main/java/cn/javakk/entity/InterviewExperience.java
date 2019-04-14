@@ -1,8 +1,11 @@
 package cn.javakk.entity;
 
+import cn.javakk.util.DateUtil;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 /**
  * 实体类
@@ -10,7 +13,7 @@ import java.io.Serializable;
  *
  */
 @Entity
-@Table(name="InterviewExperience")
+@Table(name="interviewExperience")
 public class InterviewExperience implements Serializable{
 
 	@Id
@@ -39,6 +42,8 @@ public class InterviewExperience implements Serializable{
 	private java.util.Date createTime;
 	private java.util.Date modifyTime;
 
+	@Transient
+	private String timePassed;
 	
 	public String getId() {		
 		return id;
@@ -111,5 +116,7 @@ public class InterviewExperience implements Serializable{
 	}
 
 
-	
+	public String getTimePassed() {
+		return DateUtil.passedString(this.createTime);
+	}
 }
