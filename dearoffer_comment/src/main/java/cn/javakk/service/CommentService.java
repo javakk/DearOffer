@@ -1,16 +1,7 @@
 package cn.javakk.service;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Selection;
 
 import cn.javakk.entity.Comment;
 import cn.javakk.util.IdWorker;
@@ -18,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 
@@ -41,62 +31,48 @@ public class CommentService {
 	@Autowired
 	private IdWorker idWorker;
 
-	/**
-	 * 查询全部列表
-	 * @return
-	 */
-	public List<Comment> findAll() {
-		return commentDao.findAll();
+    /**
+     * 通过父id查询
+     * @param parentId
+     * @return
+     */
+    public List<Comment> findByParentId(String parentId){
+		return commentDao.findByParentId(parentId);
 	}
 
-	
 	/**
-	 * 条件查询+分页
-	 * @param whereMap
+	 * 分页条件查询
+	 * @param companyId
 	 * @param page
 	 * @param size
 	 * @return
 	 */
-	public Page<Comment> findSearch(Map whereMap, int page, int size) {
-		Specification<Comment> specification = createSpecification(whereMap);
-		PageRequest pageRequest =  PageRequest.of(page-1, size);
-		return commentDao.findAll(specification, pageRequest);
-	}
-
-	
-	/**
-	 * 条件查询
-	 * @param whereMap
-	 * @return
-	 */
-	public List<Comment> findSearch(Map whereMap) {
-		Specification<Comment> specification = createSpecification(whereMap);
-		return commentDao.findAll(specification);
+	public Page<Comment> findSearch(String companyId, int page, int size) {
+		Sort sort = new Sort(Sort.Direction.DESC, "createTime");
+		PageRequest pageRequest = PageRequest.of(page - 1, size, sort);
+		return commentDao.findByCompanyId(companyId, pageRequest);
 	}
 
 	/**
-	 * 根据ID查询实体
-	 * @param id
-	 * @return
-	 */
-	public Comment findById(String id) {
-		return commentDao.findById(id).get();
-	}
-
-	/**
-	 * 增加
+	 * 发布新点评
 	 * @param comment
 	 */
 	public void add(Comment comment) {
 		comment.setId( idWorker.nextId()+"" );
+		comment.setCreateTime(new Date());
+		comment.setLikedCount(0L);
+		comment.setStatus(1);
+		// @Todo:用户ID未计入
+		comment.setPublisherId("");
 		commentDao.save(comment);
 	}
 
 	/**
-	 * 修改
+	 * 点赞
 	 * @param comment
 	 */
 	public void update(Comment comment) {
+		//
 		commentDao.save(comment);
 	}
 
@@ -108,32 +84,17 @@ public class CommentService {
 		commentDao.deleteById(id);
 	}
 
-	/**
-	 * 动态条件构建
-	 * @param searchMap
-	 * @return
-	 */
-	private Specification<Comment> createSpecification(Map searchMap) {
-
-		return new Specification<Comment>() {
-
-			@Override
-			public Predicate toPredicate(Root<Comment> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
-				List<Predicate> predicateList = new ArrayList<Predicate>();
-                // 标签
-                if (searchMap.get(COMMENT_TAG)!=null && !"".equals(searchMap.get(COMMENT_TAG))) {
-                	predicateList.add(cb.like(root.get(COMMENT_TAG).as(String.class), "%"+(String)searchMap.get(COMMENT_TAG)+"%"));
-                }
-                // 内容
-                if (searchMap.get(CONTENT)!=null && !"".equals(searchMap.get(CONTENT))) {
-                	predicateList.add(cb.like(root.get(CONTENT).as(String.class), "%"+(String)searchMap.get(CONTENT)+"%"));
-                }
-				
-				return cb.and( predicateList.toArray(new Predicate[predicateList.size()]));
-
-			}
-		};
-
+	public void updateLikedCount(String id) {
+		Comment commentDO = commentDao.findById(id).get();
+		commentDO.setLikedCount(commentDO.getLikedCount() + 1);
+		commentDao.save(commentDO);
 	}
 
+	public Comment findById(String id) {
+        Optional<Comment> option = commentDao.findById(id);
+        if (option != null) {
+            return option.get();
+        }
+        return null;
+	}
 }

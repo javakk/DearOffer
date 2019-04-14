@@ -1,4 +1,5 @@
 package cn.javakk.controller;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +9,7 @@ import cn.javakk.entity.Result;
 import cn.javakk.entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.javakk.service.CommentService;
 
 /**
- * 控制器层
+ * 点评控制器层
  * @author javakk
  *
  */
@@ -29,7 +31,9 @@ public class CommentController {
 
 	@Autowired
 	private CommentService commentService;
-	
+
+	@Autowired
+	private RedisTemplate redisTemplate;
 
 	/**
 	 * 根据ID查询
@@ -38,62 +42,53 @@ public class CommentController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.GET)
 	public Result findById(@PathVariable String id){
-		return new Result(true, StatusCode.OK,"查询成功",commentService.findById(id));
+		Map resultMap = new HashMap<String, Object>(2);
+		resultMap.put("parent", commentService.findById(id));
+		resultMap.put("subList", commentService.findByParentId(id));
+		return new Result(true, StatusCode.OK,"查询成功", resultMap);
 	}
 
 
 	/**
 	 * 分页+多条件查询
-	 * @param searchMap 查询条件封装
+	 * @param companyId 公司ID
 	 * @param page 页码
 	 * @param size 页大小
 	 * @return 分页结果
 	 */
-	@RequestMapping(value="/search/{page}/{size}",method=RequestMethod.POST)
-	public Result findSearch(@RequestBody Map searchMap , @PathVariable int page, @PathVariable int size){
-		Page<Comment> pageList = commentService.findSearch(searchMap, page, size);
+	@RequestMapping(value="{companyId}/{page}/{size}",method=RequestMethod.GET)
+	public Result findSearch(@PathVariable String companyId, @PathVariable int page, @PathVariable int size){
+		Page<Comment> pageList = commentService.findSearch(companyId, page, size);
 		return  new Result(true,StatusCode.OK,"查询成功",  new PageResult<Comment>(pageList.getTotalElements(), pageList.getContent()) );
 	}
-
-	/**
-     * 根据条件查询
-     * @param searchMap
-     * @return
-     */
-    @RequestMapping(value="/search",method = RequestMethod.POST)
-    public Result findSearch( @RequestBody Map searchMap){
-        return new Result(true,StatusCode.OK,"查询成功",commentService.findSearch(searchMap));
-    }
 	
 	/**
-	 * 增加
+	 * 发布评论
 	 * @param comment
 	 */
 	@RequestMapping(method=RequestMethod.POST)
-	public Result add(@RequestBody Comment comment  ){
+	public Result add(@RequestBody Comment comment){
 		commentService.add(comment);
-		return new Result(true,StatusCode.OK,"增加成功");
+		return new Result(true, StatusCode.OK,"发布成功");
 	}
 	
 	/**
-	 * 修改
-	 * @param comment
-	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
-	public Result update(@RequestBody Comment comment, @PathVariable String id ){
-		comment.setId(id);
-		commentService.update(comment);		
-		return new Result(true,StatusCode.OK,"修改成功");
-	}
-	
-	/**
-	 * 删除
+	 * 点赞
 	 * @param id
 	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
-	public Result delete(@PathVariable String id ){
-		commentService.deleteById(id);
-		return new Result(true,StatusCode.OK,"删除成功");
+	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
+	public Result update(@PathVariable String id){
+		// TODO:userId变更
+		String userId = "000";
+		// Redis键前缀
+		String likedKey = "comment:liked:" + id;
+		if ( redisTemplate.opsForSet().isMember(likedKey, userId)) {
+			return new Result(false, StatusCode.ERROR, "您已经赞过");
+		}
+
+		commentService.updateLikedCount(id);
+		redisTemplate.opsForSet().add(likedKey, userId);
+		return new Result(true,StatusCode.OK,"点赞成功");
 	}
-	
+
 }

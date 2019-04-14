@@ -1,24 +1,24 @@
 package cn.javakk.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import cn.javakk.util.DateUtil;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 /**
  * 实体类
  * @author javakk
  *
  */
-@Entity
-@Table(name="comment")
+@Document
 public class Comment implements Serializable{
 
 	@Id
 	private String id;
 
-
-	
 	private String publisherId;
+	private String parentId;
 	/**
 	 * 得分（满分10）
 	 */
@@ -33,6 +33,8 @@ public class Comment implements Serializable{
 	private String content;
 	private java.util.Date createTime;
 	private java.util.Date modifyTime;
+
+	private String timePassed;
 
 	
 	public String getId() {		
@@ -80,8 +82,8 @@ public class Comment implements Serializable{
 	public String getCompanyId() {
 		return companyId;
 	}
-	public void setCompanyId(String compnayId) {
-		this.companyId = compnayId;
+	public void setCompanyId(String companyId) {
+		this.companyId = companyId;
 	}
 
 	public String getContent() {		
@@ -106,5 +108,15 @@ public class Comment implements Serializable{
 	}
 
 
-	
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getTimePassed() {
+		return DateUtil.passedString(getCreateTime());
+	}
 }
