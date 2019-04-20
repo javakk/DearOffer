@@ -1,11 +1,10 @@
 package cn.javakk.controller;
-import java.util.List;
 import java.util.Map;
 
-import cn.javakk.entity.PageResult;
-import cn.javakk.entity.Result;
-import cn.javakk.entity.Salary;
-import cn.javakk.entity.StatusCode;
+import cn.javakk.pojo.PageResult;
+import cn.javakk.pojo.Result;
+import cn.javakk.pojo.Salary;
+import cn.javakk.pojo.StatusCode;
 import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

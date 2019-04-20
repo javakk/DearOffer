@@ -1,6 +1,6 @@
 package cn.javakk.dao;
 
-import cn.javakk.entity.Comment;
+import cn.javakk.pojo.Comment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;

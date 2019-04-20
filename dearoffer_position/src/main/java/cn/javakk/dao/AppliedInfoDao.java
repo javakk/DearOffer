@@ -1,6 +1,6 @@
 package cn.javakk.dao;
 
-import cn.javakk.entity.AppliedInfo;
+import cn.javakk.pojo.AppliedInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

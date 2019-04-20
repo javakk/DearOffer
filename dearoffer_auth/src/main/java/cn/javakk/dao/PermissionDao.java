@@ -1,6 +1,6 @@
 package cn.javakk.dao;
 
-import cn.javakk.entity.Permission;
+import cn.javakk.pojo.Permission;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

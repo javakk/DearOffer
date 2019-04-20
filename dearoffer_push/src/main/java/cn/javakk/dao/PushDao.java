@@ -1,6 +1,6 @@
 package cn.javakk.dao;
 
-import cn.javakk.entity.Push;
+import cn.javakk.pojo.Push;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

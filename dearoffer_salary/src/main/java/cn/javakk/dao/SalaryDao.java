@@ -1,6 +1,6 @@
 package cn.javakk.dao;
 
-import cn.javakk.entity.Salary;
+import cn.javakk.pojo.Salary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

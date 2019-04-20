@@ -3,7 +3,7 @@ package cn.javakk.service;
 import java.util.*;
 
 
-import cn.javakk.entity.Comment;
+import cn.javakk.pojo.Comment;
 import cn.javakk.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

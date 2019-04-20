@@ -1,6 +1,6 @@
 package cn.javakk.util;
 
-import cn.javakk.entity.User;
+import cn.javakk.pojo.User;
 
 import java.util.Date;
 

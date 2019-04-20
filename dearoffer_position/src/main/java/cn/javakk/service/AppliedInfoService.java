@@ -1,8 +1,7 @@
 package cn.javakk.service;
 
 import cn.javakk.dao.AppliedInfoDao;
-import cn.javakk.entity.AppliedInfo;
-import cn.javakk.entity.Position;
+import cn.javakk.pojo.AppliedInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

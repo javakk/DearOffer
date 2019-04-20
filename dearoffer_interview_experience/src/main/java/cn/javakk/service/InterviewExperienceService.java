@@ -7,7 +7,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import cn.javakk.entity.InterviewExperience;
+import cn.javakk.pojo.InterviewExperience;
 import cn.javakk.util.DateUtil;
 import cn.javakk.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;

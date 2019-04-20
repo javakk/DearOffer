@@ -1,11 +1,10 @@
 package cn.javakk.controller;
-import java.util.List;
 import java.util.Map;
 
-import cn.javakk.entity.PageResult;
-import cn.javakk.entity.Push;
-import cn.javakk.entity.Result;
-import cn.javakk.entity.StatusCode;
+import cn.javakk.pojo.PageResult;
+import cn.javakk.pojo.Push;
+import cn.javakk.pojo.Result;
+import cn.javakk.pojo.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;

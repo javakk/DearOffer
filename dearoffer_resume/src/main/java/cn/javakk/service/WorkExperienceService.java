@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import cn.javakk.entity.WorkExperience;
+import cn.javakk.pojo.WorkExperience;
 import cn.javakk.util.DateUtil;
 import cn.javakk.util.IdWorker;
 import cn.javakk.util.UserThreadLocal;

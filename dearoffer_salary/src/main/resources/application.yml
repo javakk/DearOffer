@@ -20,4 +20,4 @@ spring:
 
 redis:
   keys:
-    salary_credibility_fix: 'salary:credibility\:'
+    salary_credibility_fix: 'salary:credibility:'

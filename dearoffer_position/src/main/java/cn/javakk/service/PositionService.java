@@ -8,8 +8,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import cn.javakk.dao.AppliedInfoDao;
-import cn.javakk.entity.AppliedInfo;
-import cn.javakk.entity.Position;
+import cn.javakk.pojo.AppliedInfo;
+import cn.javakk.pojo.Position;
 import cn.javakk.util.DateUtil;
 import cn.javakk.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,12 +1,11 @@
 package cn.javakk.controller;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import cn.javakk.entity.InterviewExperience;
-import cn.javakk.entity.PageResult;
-import cn.javakk.entity.Result;
-import cn.javakk.entity.StatusCode;
+import cn.javakk.pojo.InterviewExperience;
+import cn.javakk.pojo.PageResult;
+import cn.javakk.pojo.Result;
+import cn.javakk.pojo.StatusCode;
 import cn.javakk.service.InterviewExperienceService;
 import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;

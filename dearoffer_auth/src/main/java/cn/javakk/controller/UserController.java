@@ -1,8 +1,8 @@
 package cn.javakk.controller;
 
-import cn.javakk.entity.Result;
-import cn.javakk.entity.StatusCode;
-import cn.javakk.entity.User;
+import cn.javakk.pojo.Result;
+import cn.javakk.pojo.StatusCode;
+import cn.javakk.pojo.User;
 import cn.javakk.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;

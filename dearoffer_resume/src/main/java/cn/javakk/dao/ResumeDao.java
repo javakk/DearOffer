@@ -1,6 +1,6 @@
 package cn.javakk.dao;
 
-import cn.javakk.entity.Resume;
+import cn.javakk.pojo.Resume;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

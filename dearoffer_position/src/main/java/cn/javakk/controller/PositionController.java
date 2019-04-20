@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import cn.javakk.entity.*;
+import cn.javakk.pojo.*;
 import cn.javakk.service.AppliedInfoService;
 import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package cn.javakk.dao;
 
-import cn.javakk.entity.WorkExperience;
+import cn.javakk.pojo.WorkExperience;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 

@@ -1,7 +1,6 @@
 package cn.javakk.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,14 +9,11 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import cn.javakk.entity.ProjectExperience;
-import cn.javakk.entity.WorkExperience;
+import cn.javakk.pojo.ProjectExperience;
 import cn.javakk.util.DateUtil;
 import cn.javakk.util.IdWorker;
 import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 

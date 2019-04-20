@@ -1,9 +1,9 @@
 package cn.javakk.controller;
 
-import cn.javakk.entity.Dictionary;
+import cn.javakk.pojo.Dictionary;
 import cn.javakk.service.DictionaryService;
-import cn.javakk.entity.PageResult;
-import cn.javakk.entity.Result;
+import cn.javakk.pojo.PageResult;
+import cn.javakk.pojo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;

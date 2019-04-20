@@ -1,9 +1,9 @@
 package cn.javakk.controller;
 import java.util.Map;
 
-import cn.javakk.entity.PageResult;
-import cn.javakk.entity.Result;
-import cn.javakk.entity.Role;
+import cn.javakk.pojo.PageResult;
+import cn.javakk.pojo.Result;
+import cn.javakk.pojo.Role;
 import cn.javakk.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

@@ -1,7 +1,7 @@
 //package cn.javakk.controller;
 //
-//import cn.javakk.entity.Result;
-//import cn.javakk.entity.StatusCode;
+//import cn.javakk.pojo.Result;
+//import cn.javakk.pojo.StatusCode;
 //import org.springframework.web.bind.annotation.ControllerAdvice;
 //import org.springframework.web.bind.annotation.ExceptionHandler;
 //import org.springframework.web.bind.annotation.ResponseBody;
