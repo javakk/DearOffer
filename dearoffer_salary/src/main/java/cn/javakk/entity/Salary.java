@@ -1,5 +1,7 @@
 package cn.javakk.entity;
 
+import cn.javakk.util.DateUtil;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -72,6 +74,9 @@ public class Salary implements Serializable{
 
 	@Transient
 	private Float credibilityPercent;
+
+	@Transient
+	private String timePassed;
 
 	public String getId() {		
 		return id;
@@ -171,7 +176,7 @@ public class Salary implements Serializable{
 		this.status = status;
 	}
 
-	public java.util.Date getCreateTime() {		
+	public java.util.Date getCreateTime() {
 		return createTime;
 	}
 	public void setCreateTime(java.util.Date createTime) {
@@ -187,6 +192,14 @@ public class Salary implements Serializable{
 
 
 	public Float getCredibilityPercent() {
-		return credibility * 1.0F / (pageView + 1) / 100;
+		return credibilityPercent;
+	}
+
+	public void setCredibilityPercent(Float credibilityPercent) {
+		this.credibilityPercent = credibilityPercent;
+	}
+
+	public String getTimePassed() {
+		return DateUtil.passedString(this.createTime);
 	}
 }

@@ -12,11 +12,14 @@ import javax.persistence.criteria.Selection;
 import cn.javakk.entity.Salary;
 import cn.javakk.util.DateUtil;
 import cn.javakk.util.IdWorker;
+import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 
@@ -37,12 +40,18 @@ public class SalaryService {
 	private static final String DEGREE_TAG = "degreeTag";
 	private static final String POSITION_TITLE = "positionTitle";
 	private static final String SKILL_TAG = "skillTag";
+
+	@Value("${redis.keys.salary_credibility_fix}")
+	private String credibilityKeyFix;
+
 	@Autowired
 	private SalaryDao salaryDao;
 	
 	@Autowired
 	private IdWorker idWorker;
 
+	@Autowired
+	private RedisTemplate redisTemplate;
 	/**
 	 * 查询全部列表
 	 * @return
@@ -82,7 +91,19 @@ public class SalaryService {
 	 * @return
 	 */
 	public Salary findById(String id) {
-		return salaryDao.findById(id).get();
+		Salary salary = null;
+		Optional<Salary> optional = salaryDao.findById(id);
+		if (optional != null && optional.isPresent()) {
+			salary = optional.get();
+			salary.setPageView(salary.getPageView() + 1);
+			// 可信度封装
+			Long allCount = redisTemplate.opsForSet().size(credibilityKeyFix + id);
+			allCount = allCount == null ? 1 : allCount;
+			salary.setCredibilityPercent(salary.getCredibility() * 1F / allCount / 100);
+			salaryDao.save(salary);
+		}
+
+		return salary;
 	}
 
 	/**
@@ -92,6 +113,8 @@ public class SalaryService {
 	public void add(Salary salary) {
 		salary.setId( idWorker.nextId()+"" );
 		salary.setCreateTime(DateUtil.getNow());
+		salary.setPageView(1L);
+		salary.setPublisherId(UserThreadLocal.getUserId());
 		salary.setCredibility(50);
 		salary.setStatus(1);
 		salaryDao.save(salary);
@@ -151,7 +174,7 @@ public class SalaryService {
 
 	public void updateCredibility(String id, Boolean agree) {
 		Optional<Salary> option = salaryDao.findById(id);
-		if (option.isPresent()) {
+		if (option != null && option.isPresent()) {
 			Salary salaryDO = option.get();
 			Integer optionCount = agree ? 1 : -1;
 			salaryDO.setCredibility(salaryDO.getCredibility() + optionCount);

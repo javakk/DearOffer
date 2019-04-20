@@ -8,6 +8,7 @@ import cn.javakk.entity.Salary;
 import cn.javakk.entity.StatusCode;
 import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -34,6 +35,9 @@ public class SalaryController {
 
 	@Autowired
 	private RedisTemplate redisTemplate;
+
+	@Value("${redis.keys.salary_credibility_fix}")
+	private String credibilityKeyFix;
 
 	/**
 	 * 根据ID查询
@@ -88,12 +92,11 @@ public class SalaryController {
 	@RequestMapping(value="/{id}",method= RequestMethod.POST)
 	public Result update(@PathVariable String id, Boolean agree){
 		String userId = UserThreadLocal.getUserId();
-		String credibilityKey = "salary:credibility:" + id;
-		if (redisTemplate.opsForSet().isMember(credibilityKey, userId)) {
+		if (redisTemplate.opsForSet().isMember(credibilityKeyFix + id, userId)) {
 			return new Result(false, StatusCode.OK, "已经回馈过");
 		}
 		salaryService.updateCredibility(id, agree);
-		redisTemplate.opsForSet().add(credibilityKey, userId);
+		redisTemplate.opsForSet().add(credibilityKeyFix + id, userId);
 		return new Result(true,StatusCode.OK,"操作成功");
 	}
 }
