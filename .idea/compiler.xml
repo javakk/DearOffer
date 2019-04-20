@@ -11,6 +11,7 @@
         <module name="dearoffer_comment" />
         <module name="dearoffer_common" />
         <module name="dearoffer_company" />
+        <module name="dearoffer_crawler" />
         <module name="dearoffer_interview_experience" />
         <module name="dearoffer_position" />
         <module name="dearoffer_push" />
@@ -27,6 +28,7 @@
       <module name="dearoffer_comment" options="-parameters" />
       <module name="dearoffer_common" options="-parameters" />
       <module name="dearoffer_company" options="-parameters" />
+      <module name="dearoffer_crawler" options="-parameters" />
       <module name="dearoffer_interview_experience" options="-parameters" />
       <module name="dearoffer_parent" options="-parameters" />
       <module name="dearoffer_position" options="-parameters" />

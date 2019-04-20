@@ -20,6 +20,7 @@
         <module>dearoffer_salary</module>
         <module>dearoffer_push</module>
         <module>dearoffer_search</module>
+        <module>dearoffer_crawler</module>
     </modules>
 
     <parent>
