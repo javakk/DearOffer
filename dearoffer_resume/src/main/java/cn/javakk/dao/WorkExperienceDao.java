@@ -10,5 +10,11 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  *
  */
 public interface WorkExperienceDao extends JpaRepository<WorkExperience,String>,JpaSpecificationExecutor<WorkExperience>{
-	
+    /**
+     * 修改权限校验
+     * @param experienceId
+     * @param userId
+     * @return
+     */
+    Long countByIdAndPublisherId(String experienceId, String userId);
 }

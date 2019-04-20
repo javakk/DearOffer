@@ -10,5 +10,11 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  *
  */
 public interface ProjectExperienceDao extends JpaRepository<ProjectExperience,String>,JpaSpecificationExecutor<ProjectExperience>{
-
+    /**
+     * 修改权限校验
+     * @param projectId
+     * @param userId
+     * @return
+     */
+    Long countByIdAndPublisherId(String projectId, String userId);
 }

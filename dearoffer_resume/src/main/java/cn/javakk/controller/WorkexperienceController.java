@@ -22,21 +22,11 @@ import cn.javakk.service.WorkExperienceService;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/workexperience")
+@RequestMapping("/workExperience")
 public class WorkExperienceController {
 
 	@Autowired
 	private WorkExperienceService workexperienceService;
-
-	/**
-	 * 根据ID查询
-	 * @param id ID
-	 * @return
-	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.GET)
-	public Result findById(@PathVariable String id){
-		return new Result(true, StatusCode.OK,"查询成功",workexperienceService.findById(id));
-	}
 
 	/**
 	 * 增加
@@ -54,6 +44,10 @@ public class WorkExperienceController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
 	public Result update(@RequestBody WorkExperience workExperience, @PathVariable String id ){
+		Boolean canWrite = workexperienceService.canWrite(id);
+		if (!canWrite) {
+			return new Result(false, StatusCode.ACCESSERROR, "权限不足");
+		}
 		workExperience.setId(id);
 		workexperienceService.update(workExperience);
 		return new Result(true,StatusCode.OK,"修改成功");
@@ -65,6 +59,10 @@ public class WorkExperienceController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
 	public Result delete(@PathVariable String id ){
+		Boolean canWrite = workexperienceService.canWrite(id);
+		if (!canWrite) {
+			return new Result(false, StatusCode.ACCESSERROR, "权限不足");
+		}
 		workexperienceService.deleteById(id);
 		return new Result(true,StatusCode.OK,"删除成功");
 	}

@@ -1,6 +1,7 @@
 package cn.javakk.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,7 +11,10 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import cn.javakk.entity.ProjectExperience;
+import cn.javakk.entity.WorkExperience;
+import cn.javakk.util.DateUtil;
 import cn.javakk.util.IdWorker;
+import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 
 import cn.javakk.dao.ProjectExperienceDao;
+import org.springframework.util.StringUtils;
 
 /**
  * 服务层
@@ -34,31 +39,18 @@ public class ProjectExperienceService {
 	
 	@Autowired
 	private IdWorker idWorker;
-
-	/**
-	 * 查询全部列表
-	 * @return
-	 */
-	public List<ProjectExperience> findAll() {
-		return projectExperienceDao.findAll();
-	}
-
-
-	/**
-	 * 根据ID查询实体
-	 * @param id
-	 * @return
-	 */
-	public ProjectExperience findById(String id) {
-		return projectExperienceDao.findById(id).get();
-	}
-
+	private final String PUBLISHER_ID = "publisherId";
+	private final String RESUME_ID = "resumeId";
+	
 	/**
 	 * 增加
 	 * @param projectExperience
 	 */
 	public void add(ProjectExperience projectExperience) {
 		projectExperience.setId( idWorker.nextId()+"" );
+		projectExperience.setCreateTime(DateUtil.getNow());
+		projectExperience.setStatus(1);
+		projectExperience.setPublisherId(UserThreadLocal.getUserId());
 		projectExperienceDao.save(projectExperience);
 	}
 
@@ -67,6 +59,12 @@ public class ProjectExperienceService {
 	 * @param projectExperience
 	 */
 	public void update(ProjectExperience projectExperience) {
+		ProjectExperience projectExperienceVO = projectExperienceDao.findById(projectExperience.getId()).get();
+		projectExperience.setPublisherId(projectExperienceVO.getPublisherId());
+		projectExperience.setCreateTime(projectExperienceVO.getCreateTime());
+		projectExperience.setResumeId(projectExperienceVO.getResumeId());
+		projectExperience.setModifyTime(DateUtil.getNow());
+		projectExperience.setStatus(projectExperienceVO.getStatus());
 		projectExperienceDao.save(projectExperience);
 	}
 
@@ -76,6 +74,47 @@ public class ProjectExperienceService {
 	 */
 	public void deleteById(String id) {
 		projectExperienceDao.deleteById(id);
+	}
+
+	/**
+	 * 条件查询
+	 * @param whereMap
+	 * @return
+	 */
+	public List<ProjectExperience> findSearch(Map whereMap) {
+		Specification<ProjectExperience> specification = createSpecification(whereMap);
+		return projectExperienceDao.findAll(specification);
+	}
+
+	/**
+	 * 动态条件构建
+	 * @param searchMap
+	 * @return
+	 */
+	private Specification<ProjectExperience> createSpecification(Map searchMap) {
+		return new Specification<ProjectExperience> () {
+			@Override
+			public Predicate toPredicate(Root<ProjectExperience> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
+				List<Predicate> predicateList = new ArrayList<Predicate>();
+				if (!StringUtils.isEmpty(searchMap.get(PUBLISHER_ID))) {
+					predicateList.add(criteriaBuilder.equal(root.get(PUBLISHER_ID), searchMap.get(PUBLISHER_ID)));
+				}
+				if (!StringUtils.isEmpty(searchMap.get(RESUME_ID))) {
+					predicateList.add(criteriaBuilder.equal(root.get(RESUME_ID), searchMap.get(RESUME_ID)));
+				}
+				return criteriaBuilder.and(predicateList.toArray(new Predicate [predicateList.size()]));
+			}
+		};
+	}
+
+	/**
+	 * 修改权限校验
+	 * @param projectId
+	 * @return
+	 */
+	public Boolean canWrite(String projectId) {
+		Long count = projectExperienceDao.countByIdAndPublisherId(projectId, UserThreadLocal.getUserId());
+		return count > 0;
 	}
 
 

@@ -30,21 +30,11 @@ public class RewardController {
 	private RewardService rewardService;
 
 	/**
-	 * 根据ID查询
-	 * @param id ID
-	 * @return
-	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.GET)
-	public Result findById(@PathVariable String id){
-		return new Result(true, StatusCode.OK,"查询成功",rewardService.findById(id));
-	}
-
-	/**
 	 * 增加
 	 * @param reward
 	 */
 	@RequestMapping(method=RequestMethod.POST)
-	public Result add(@RequestBody Reward reward  ){
+	public Result add(@RequestBody Reward reward){
 		rewardService.add(reward);
 		return new Result(true,StatusCode.OK,"增加成功");
 	}
@@ -55,6 +45,10 @@ public class RewardController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
 	public Result update(@RequestBody Reward reward, @PathVariable String id ){
+		Boolean canWrite = rewardService.canWrite(id);
+		if (!canWrite) {
+			return new Result(false, StatusCode.ACCESSERROR, "权限不足");
+		}
 		reward.setId(id);
 		rewardService.update(reward);		
 		return new Result(true,StatusCode.OK,"修改成功");
@@ -66,8 +60,11 @@ public class RewardController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
 	public Result delete(@PathVariable String id ){
+		Boolean canWrite = rewardService.canWrite(id);
+		if (!canWrite) {
+			return new Result(false, StatusCode.ACCESSERROR, "权限不足");
+		}
 		rewardService.deleteById(id);
 		return new Result(true,StatusCode.OK,"删除成功");
 	}
-	
 }

@@ -10,5 +10,12 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  *
  */
 public interface RewardDao extends JpaRepository<Reward,String>,JpaSpecificationExecutor<Reward>{
-	
+
+    /**
+     * 修改权限校验
+     * @param rewardId
+     * @param userId
+     * @return
+     */
+    Long countByIdAndPublisherId(String rewardId, String userId);
 }

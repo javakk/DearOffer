@@ -5,6 +5,7 @@ import java.util.Map;
 import cn.javakk.entity.Result;
 import cn.javakk.entity.Resume;
 import cn.javakk.entity.StatusCode;
+import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import cn.javakk.service.ResumeService;
 
 /**
- * 控制器层
+ * 简历控制器层
  * @author javakk
  *
  */
@@ -29,24 +30,40 @@ public class ResumeController {
 	@Autowired
 	private ResumeService resumeService;
 
+
 	/**
-	 * 根据ID查询
+	 * 查询我所有简历
+	 * @return
+	 */
+	@RequestMapping(value="",method= RequestMethod.GET)
+	public Result findAll(){
+		return new Result(true, StatusCode.OK,"查询成功",resumeService.findAll());
+	}
+
+	/**
+	 * 聚合简历详情
 	 * @param id ID
 	 * @return
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.GET)
 	public Result findById(@PathVariable String id){
+		Boolean canRead = resumeService.canRead(id);
+		if (!canRead) {
+			return new Result(false, StatusCode.ACCESSERROR, "权限不足");
+		}
 		return new Result(true, StatusCode.OK,"查询成功",resumeService.findById(id));
 	}
 
 	/**
-	 * 增加
+	 * 新创建简历
 	 * @param resume
 	 */
 	@RequestMapping(method=RequestMethod.POST)
-	public Result add(@RequestBody Resume resume  ){
+	public Result add(@RequestBody Resume resume){
+		String userId = UserThreadLocal.getUserId();
+		resume.setPublisherId(userId);
 		resumeService.add(resume);
-		return new Result(true,StatusCode.OK,"增加成功");
+		return new Result(true,StatusCode.OK,"创建简历成功");
 	}
 	
 	/**
@@ -55,6 +72,9 @@ public class ResumeController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
 	public Result update(@RequestBody Resume resume, @PathVariable String id ){
+		if (!resumeService.canWrite(id)) {
+			return new Result(false, StatusCode.ACCESSERROR, "权限不足");
+		}
 		resume.setId(id);
 		resumeService.update(resume);		
 		return new Result(true,StatusCode.OK,"修改成功");
@@ -66,6 +86,10 @@ public class ResumeController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
 	public Result delete(@PathVariable String id ){
+		Boolean canWrite = resumeService.canWrite(id);
+		if (!canWrite) {
+			return new Result(false, StatusCode.ACCESSERROR, "权限不足");
+		}
 		resumeService.deleteById(id);
 		return new Result(true,StatusCode.OK,"删除成功");
 	}

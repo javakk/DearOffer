@@ -7,6 +7,7 @@ import cn.javakk.entity.Comment;
 import cn.javakk.entity.PageResult;
 import cn.javakk.entity.Result;
 import cn.javakk.entity.StatusCode;
+import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -79,7 +80,7 @@ public class CommentController {
 	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
 	public Result update(@PathVariable String id){
 		// TODO:userId变更
-		String userId = "000";
+		String userId = UserThreadLocal.getUserId();
 		// Redis键前缀
 		String likedKey = "comment:liked:" + id;
 		if ( redisTemplate.opsForSet().isMember(likedKey, userId)) {

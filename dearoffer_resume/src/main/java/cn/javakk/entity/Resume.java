@@ -63,6 +63,11 @@ public class Resume implements Serializable{
 	 * 附件简历
 	 */
 	private String attachment;
+	/**
+	 * 0:异常
+	 * 1:公开
+	 * 2:私密
+	 */
 	private Integer status;
 	/**
 	 * 性别0男1女

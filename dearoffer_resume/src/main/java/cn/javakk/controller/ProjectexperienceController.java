@@ -29,17 +29,6 @@ public class ProjectExperienceController {
 	private ProjectExperienceService projectexperienceService;
 
 	/**
-	 * 根据ID查询
-	 * @param id ID
-	 * @return
-	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.GET)
-	public Result findById(@PathVariable String id){
-		return new Result(true,StatusCode.OK,"查询成功",projectexperienceService.findById(id));
-	}
-
-
-	/**
 	 * 增加
 	 * @param projectexperience
 	 */
@@ -55,6 +44,10 @@ public class ProjectExperienceController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
 	public Result update(@RequestBody ProjectExperience projectexperience, @PathVariable String id ){
+		Boolean canWrite = projectexperienceService.canWrite(id);
+		if (!canWrite) {
+			return new Result(false, StatusCode.ACCESSERROR, "权限不足");
+		}
 		projectexperience.setId(id);
 		projectexperienceService.update(projectexperience);		
 		return new Result(true,StatusCode.OK,"修改成功");
@@ -66,6 +59,10 @@ public class ProjectExperienceController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
 	public Result delete(@PathVariable String id ){
+		Boolean canWrite = projectexperienceService.canWrite(id);
+		if (!canWrite) {
+			return new Result(false, StatusCode.ACCESSERROR, "权限不足");
+		}
 		projectexperienceService.deleteById(id);
 		return new Result(true, StatusCode.OK,"删除成功");
 	}

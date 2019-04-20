@@ -6,6 +6,7 @@ import cn.javakk.entity.PageResult;
 import cn.javakk.entity.Result;
 import cn.javakk.entity.Salary;
 import cn.javakk.entity.StatusCode;
+import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -86,7 +87,7 @@ public class SalaryController {
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.POST)
 	public Result update(@PathVariable String id, Boolean agree){
-		String userId = "00001";
+		String userId = UserThreadLocal.getUserId();
 		String credibilityKey = "salary:credibility:" + id;
 		if (redisTemplate.opsForSet().isMember(credibilityKey, userId)) {
 			return new Result(false, StatusCode.OK, "已经回馈过");

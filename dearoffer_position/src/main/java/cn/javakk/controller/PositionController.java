@@ -5,6 +5,7 @@ import java.util.Map;
 
 import cn.javakk.entity.*;
 import cn.javakk.service.AppliedInfoService;
+import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -40,7 +41,7 @@ public class PositionController {
 	public Result findById(@PathVariable String id){
 		Position position = positionService.findById(id);
 		// TODO：记录点击量
-		String userId = "00001";
+		String userId = UserThreadLocal.getUserId();
 		if (position != null) {
 			redisTemplate.opsForList().rightPush("position:view:" + id, userId);
 		}
@@ -54,7 +55,7 @@ public class PositionController {
 	 */
 	@PutMapping(value="/{id}")
 	public Result update(@PathVariable String id){
-		String userId = "00001";
+		String userId = UserThreadLocal.getUserId();
 		// 查询是否已申请
 		Map searchMap = new HashMap<String, Object>(2);
 		searchMap.put("userId", userId);
