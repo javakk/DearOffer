@@ -15,12 +15,14 @@
         <module name="dearoffer_interview_experience" />
         <module name="dearoffer_message" />
         <module name="dearoffer_position" />
-        <module name="dearoffer_push" />
         <module name="dearoffer_resume" />
         <module name="dearoffer_salary" />
         <module name="dearoffer_search" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="dearoffer_push" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
