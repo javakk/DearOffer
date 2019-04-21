@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -70,6 +71,7 @@ public class UserController {
 	 */
 	@PostMapping(value="/{code}")
 	public Result add(@RequestBody User user, @PathVariable String code) {
+
 		String redisCode = (String) redisTemplate.opsForValue().get(registerKeyFix + user.getPhone());
 		if (StringUtils.isEmpty(redisCode) || !redisCode.equals(code)) {
 			return new Result(false, StatusCode.ERROR, "验证码错误");
@@ -85,7 +87,16 @@ public class UserController {
 	 */
 	@GetMapping(value = "/code/{phone}")
 	public Result getCode( @PathVariable String phone){
-		if (redisTemplate.opsForValue().get(registerKeyFix + phone) != null) {
+        // TODO:IP限制
+        Map searchMap = new HashMap<String, String>(1);
+        searchMap.put("phone", phone);
+        List<User> searchedUser = userService.findSearch(searchMap);
+
+        if (searchedUser != null && !searchedUser.isEmpty()) {
+            return new Result(false, StatusCode.ERROR, "手机号码已经注册");
+        }
+
+        if (redisTemplate.opsForValue().get(registerKeyFix + phone) != null) {
 			return new Result(false, StatusCode.ERROR, "操作太过频繁，稍后重试");
 		}
 

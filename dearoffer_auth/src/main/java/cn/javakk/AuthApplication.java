@@ -1,9 +1,12 @@
 package cn.javakk;
 
 import cn.javakk.util.IdWorker;
+import cn.javakk.util.TokenUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
@@ -23,5 +26,20 @@ public class AuthApplication {
     @Bean
     public IdWorker idWorker() {
         return new IdWorker(1, 1);
+    }
+
+    /**
+     * 加盐bean
+     * @return
+     */
+    @Bean
+    public BCryptPasswordEncoder bcryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
+
+
+    @Bean
+    public TokenUtil tokenUtil(){
+        return new TokenUtil();
     }
 }

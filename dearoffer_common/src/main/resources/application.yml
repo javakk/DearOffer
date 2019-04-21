@@ -8,3 +8,4 @@ spring:
 mail:
   fromMail:
     addr: 92920@sohu.com
+

@@ -3,6 +3,7 @@ package cn.javakk.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -11,9 +12,12 @@ import javax.persistence.criteria.Root;
 
 import cn.javakk.dao.UserDao;
 import cn.javakk.pojo.User;
+import cn.javakk.util.DateUtil;
 import cn.javakk.util.IdWorker;
+import cn.javakk.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -38,7 +42,8 @@ public class UserService {
 	@Autowired
 	private IdWorker idWorker;
 
-	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	/**
 	 * 条件查询
 	 * @param whereMap
@@ -55,7 +60,11 @@ public class UserService {
 	 * @return
 	 */
 	public User findById(String id) {
-		return userDao.findById(id).get();
+        Optional<User> option = userDao.findById(id);
+        if (option != null && option.isPresent()) {
+            return option.get();
+        }
+        return null;
 	}
 
 
@@ -115,6 +124,20 @@ public class UserService {
 
 	}
 
+	/**
+	 * 用户注册
+	 * @param user
+	 */
     public void add(User user) {
+		String salt = RandomUtil.generateSalt();
+		user.setId(idWorker.nextId() + "");
+		user.setCreateTime(DateUtil.getNow());
+    	user.setSalt(salt);
+    	user.setStatus(1);
+    	// TODO:role
+    	user.setRoleId("1");
+    	user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		userDao.save(user);
     }
+
 }
