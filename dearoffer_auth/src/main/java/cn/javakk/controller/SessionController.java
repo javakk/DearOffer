@@ -29,7 +29,7 @@ public class SessionController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-    @PostMapping("/")
+    @PostMapping("/login")
     public Result login(@RequestBody HashMap<String, String> map) {
         if (map != null && !map.isEmpty()) {
             Map searchMap = new HashMap<String, String>(1);

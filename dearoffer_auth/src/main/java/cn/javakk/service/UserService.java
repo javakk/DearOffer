@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 
 /**
@@ -73,7 +74,19 @@ public class UserService {
 	 * @param user
 	 */
 	public void update(User user) {
-		userDao.save(user);
+		Optional<User> option = userDao.findById(user.getId());
+		if (option != null && option.isPresent()) {
+			User userVO = option.get();
+			if (!StringUtils.isEmpty(user.getPassword())) {
+				user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+			}
+			user.setRoleId(userVO.getRoleId());
+			user.setModifyTime(DateUtil.getNow());
+			user.setCreateTime(userVO.getCreateTime());
+			user.setStatus(userVO.getStatus());
+			user.setPhone(userVO.getPhone());
+			userDao.saveAndFlush(user);
+		}
 	}
 
 	/**

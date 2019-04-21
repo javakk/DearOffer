@@ -5,6 +5,7 @@ import cn.javakk.pojo.StatusCode;
 import cn.javakk.pojo.User;
 import cn.javakk.service.UserService;
 import cn.javakk.util.RandomUtil;
+import io.jsonwebtoken.Claims;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +38,9 @@ public class UserController {
 	@Autowired
 	private RabbitTemplate rabbitTemplate;
 
+	@Autowired
+	private HttpServletRequest request;
+
 	@Value("${message.register.effectiveTime}")
 	private String registerEffectiveTime;
 
@@ -58,7 +63,11 @@ public class UserController {
 	 * @param user
 	 */
 	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
-	public Result update(@RequestBody User user, @PathVariable String id ){
+	public Result update(@RequestBody User user, @PathVariable String id){
+		Map loginUser = (Map) request.getAttribute("user");
+		if (loginUser == null || !loginUser.get("id").equals(id)) {
+			return new Result(false, StatusCode.ACCESSERROR, "权限不足");
+		}
 		user.setId(id);
 		userService.update(user);		
 		return new Result(true, StatusCode.OK,"修改成功");

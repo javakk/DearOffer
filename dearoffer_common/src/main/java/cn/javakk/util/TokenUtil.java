@@ -55,6 +55,10 @@ public class TokenUtil {
                 .getBody();
     }
 
+    public static void destroyToken(String id) {
+
+    }
+
     public static void main(String[] args) {
 //        String ad = createToken("123", "ad", new User());
         Claims claims = parseToken("eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIxMjMiLCJzdWIiOiJhZCIsImlhdCI6MTU1NTgzMzQ3OCwidXNlciI6eyJpZCI6bnVsbCwicm9sZUlkIjpudWxsLCJ1c2VyTmFtZSI6bnVsbCwicGFzc3dvcmQiOm51bGwsImVtYWlsIjpudWxsLCJwaG9uZSI6bnVsbCwiaGVhZEltYWdlIjpudWxsLCJzZXgiOm51bGwsInNhbHQiOm51bGwsInN0YXR1cyI6bnVsbCwiY3JlYXRlVGltZSI6bnVsbCwibW9kaWZ5VGltZSI6bnVsbH0sImV4cCI6MTU1NTg5Mzk1OH0.fNpMpiOxC42ysI3OTCkN5FG1LiX4ycodVnRGGcd_JL0");
