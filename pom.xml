@@ -21,6 +21,7 @@
         <module>dearoffer_push</module>
         <module>dearoffer_search</module>
         <module>dearoffer_crawler</module>
+        <module>dearoffer_message</module>
     </modules>
 
     <parent>

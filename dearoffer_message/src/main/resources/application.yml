@@ -1,0 +1,18 @@
+server:
+  port: 9009
+
+spring:
+  application:
+    name: dearoffer-message
+
+  rabbitmq:
+    host: 192.168.230.129
+
+tencent:
+  message:
+    appid: 1400204427
+    appkey: 741378178a6fcdb1065e4818e0a21038
+    smsSign: JavaKK
+    register:
+      templateId: 317057
+      effectiveTime: 2

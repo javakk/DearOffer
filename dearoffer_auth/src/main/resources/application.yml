@@ -12,3 +12,17 @@ spring:
   jpa:
     database: mysql
     show-sql: true
+
+  redis:
+    host: 192.168.230.129
+
+  rabbitmq:
+    host: 192.168.230.129
+
+redis:
+  keys:
+    register_code_fix: 'register:code:phone_'
+
+message:
+  register:
+    effectiveTime: 2

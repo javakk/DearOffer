@@ -4,13 +4,17 @@ import cn.javakk.pojo.Result;
 import cn.javakk.pojo.StatusCode;
 import cn.javakk.pojo.User;
 import cn.javakk.service.UserService;
+import cn.javakk.util.RandomUtil;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 控制器层
@@ -24,6 +28,19 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private RedisTemplate redisTemplate;
+
+	@Autowired
+	private RabbitTemplate rabbitTemplate;
+
+	@Value("${message.register.effectiveTime}")
+	private String registerEffectiveTime;
+
+
+	@Value("${redis.keys.register_code_fix}")
+	private String registerKeyFix;
 
 	/**
 	 * 根据ID查询
@@ -46,4 +63,41 @@ public class UserController {
 		return new Result(true, StatusCode.OK,"修改成功");
 	}
 
+	/**
+	 * 注册
+	 * @param user
+	 * @return
+	 */
+	@PostMapping(value="/{code}")
+	public Result add(@RequestBody User user, @PathVariable String code) {
+		String redisCode = (String) redisTemplate.opsForValue().get(registerKeyFix + user.getPhone());
+		if (StringUtils.isEmpty(redisCode) || !redisCode.equals(code)) {
+			return new Result(false, StatusCode.ERROR, "验证码错误");
+		}
+		userService.add(user);
+		return new Result(true, StatusCode.OK, "成功");
+	}
+
+	/**
+	 * 获取验证码
+	 * @param phone
+	 * @return
+	 */
+	@GetMapping(value = "/code/{phone}")
+	public Result getCode( @PathVariable String phone){
+		if (redisTemplate.opsForValue().get(registerKeyFix + phone) != null) {
+			return new Result(false, StatusCode.ERROR, "操作太过频繁，稍后重试");
+		}
+
+		String code = RandomUtil.generateValidCode();
+		redisTemplate.opsForValue().set(registerKeyFix + phone, code);
+		redisTemplate.expire(registerKeyFix + phone, Long.parseLong(registerEffectiveTime), TimeUnit.MINUTES);
+
+		Map messageMap = new HashMap<String, String>(2);
+		messageMap.put("mobile", phone);
+		messageMap.put("code", code);
+
+		rabbitTemplate.convertAndSend("register", messageMap);
+		return new Result(true, StatusCode.OK, "获取成功", code);
+	}
 }
