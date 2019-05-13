@@ -1,6 +1,4 @@
 package cn.javakk.controller;
-import java.util.HashMap;
-import java.util.Map;
 
 import cn.javakk.pojo.InterviewExperience;
 import cn.javakk.pojo.PageResult;
@@ -11,12 +9,10 @@ import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**

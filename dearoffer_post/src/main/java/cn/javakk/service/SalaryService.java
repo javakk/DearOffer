@@ -1,12 +1,6 @@
 package cn.javakk.service;
 
-import java.util.*;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-
+import cn.javakk.dao.SalaryDao;
 import cn.javakk.pojo.Salary;
 import cn.javakk.util.DateUtil;
 import cn.javakk.util.IdWorker;
@@ -19,8 +13,14 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
-
-import cn.javakk.dao.SalaryDao;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * 服务层

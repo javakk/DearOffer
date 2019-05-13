@@ -8,27 +8,26 @@
         <outputRelativeToContentRoot value="true" />
         <module name="dearoffer_auth" />
         <module name="dearoffer_base" />
-        <module name="dearoffer_comment" />
         <module name="dearoffer_common" />
         <module name="dearoffer_company" />
         <module name="dearoffer_crawler" />
-        <module name="dearoffer_interview_experience" />
         <module name="dearoffer_message" />
         <module name="dearoffer_position" />
+        <module name="dearoffer_post" />
         <module name="dearoffer_resume" />
-        <module name="dearoffer_salary" />
         <module name="dearoffer_search" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="dearoffer_interview_experience" target="1.8" />
       <module name="dearoffer_push" target="1.8" />
+      <module name="dearoffer_salary" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="dearoffer_auth" options="-parameters" />
       <module name="dearoffer_base" options="-parameters" />
-      <module name="dearoffer_comment" options="-parameters" />
       <module name="dearoffer_common" options="-parameters" />
       <module name="dearoffer_company" options="-parameters" />
       <module name="dearoffer_crawler" options="-parameters" />
@@ -36,6 +35,7 @@
       <module name="dearoffer_message" options="-parameters" />
       <module name="dearoffer_parent" options="-parameters" />
       <module name="dearoffer_position" options="-parameters" />
+      <module name="dearoffer_post" options="-parameters" />
       <module name="dearoffer_push" options="-parameters" />
       <module name="dearoffer_resume" options="-parameters" />
       <module name="dearoffer_salary" options="-parameters" />
