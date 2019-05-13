@@ -11,8 +11,8 @@
         <module name="dearoffer_common" />
         <module name="dearoffer_company" />
         <module name="dearoffer_crawler" />
+        <module name="dearoffer_employment" />
         <module name="dearoffer_message" />
-        <module name="dearoffer_position" />
         <module name="dearoffer_post" />
         <module name="dearoffer_resume" />
         <module name="dearoffer_search" />
@@ -31,10 +31,10 @@
       <module name="dearoffer_common" options="-parameters" />
       <module name="dearoffer_company" options="-parameters" />
       <module name="dearoffer_crawler" options="-parameters" />
+      <module name="dearoffer_employment" options="-parameters" />
       <module name="dearoffer_interview_experience" options="-parameters" />
       <module name="dearoffer_message" options="-parameters" />
       <module name="dearoffer_parent" options="-parameters" />
-      <module name="dearoffer_position" options="-parameters" />
       <module name="dearoffer_post" options="-parameters" />
       <module name="dearoffer_push" options="-parameters" />
       <module name="dearoffer_resume" options="-parameters" />
