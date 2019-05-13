@@ -13,12 +13,9 @@
         <module>dearoffer_auth</module>
         <module>dearoffer_base</module>
         <module>dearoffer_company</module>
-        <module>dearoffer_interview_experience</module>
-        <module>dearoffer_comment</module>
-        <module>dearoffer_position</module>
+        <module>dearoffer_employment</module>
         <module>dearoffer_resume</module>
-        <module>dearoffer_salary</module>
-        <module>dearoffer_push</module>
+        <module>dearoffer_post</module>
         <module>dearoffer_search</module>
         <module>dearoffer_crawler</module>
         <module>dearoffer_message</module>
