@@ -1,12 +1,12 @@
 server:
-  port: 9009
+  port: 9005
 
 spring:
   application:
     name: dearoffer-message
 
   rabbitmq:
-    host: 192.168.230.129
+    host: 192.168.230.128
 
 tencent:
   message:
@@ -16,3 +16,10 @@ tencent:
     register:
       templateId: 317057
       effectiveTime: 2
+
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://localhost:8686/eureka
+  instance:
+    prefer‐ip‐address: true

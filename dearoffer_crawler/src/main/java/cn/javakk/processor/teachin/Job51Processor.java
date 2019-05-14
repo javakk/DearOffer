@@ -16,6 +16,7 @@ import us.codecraft.webmagic.selector.Selectable;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -50,6 +51,8 @@ public class Job51Processor implements PageProcessor, BaseProcessor {
 
         Boolean onCollect = true;
 
+        List<TeachIn> teachIns = new ArrayList<>();
+
         for (Selectable node : nodes) {
             String startTime = node.css("div.time", "text").toString();
             if (StringUtils.isNotBlank(startTime)) {
@@ -79,7 +82,7 @@ public class Job51Processor implements PageProcessor, BaseProcessor {
                         teachIn.setCreateTime(DateUtil.getNow());
                         teachIn.setStatus(1);
 
-                        page.putField("teachIn", teachIn);
+                        teachIns.add(teachIn);
                     } else if (restDay < 0) {
                         onCollect = false;
                         break;
@@ -89,6 +92,8 @@ public class Job51Processor implements PageProcessor, BaseProcessor {
                 }
             }
         }
+
+        page.putField("teachIn", teachIns);
         if (++index <= pageTotal && onCollect) {
             page.addTargetRequest(new Request(LINK + index));
         }

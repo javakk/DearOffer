@@ -6,7 +6,7 @@ spring:
     name: dearoffer-company
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.230.129:3306/offer?characterEncoding=utf-8
+    url: jdbc:mysql://192.168.230.128:3306/offer?characterEncoding=utf-8
     username: root
     password: root
   jpa:
@@ -15,3 +15,9 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://localhost:8686/eureka
+  instance:
+    prefer‐ip‐address: true

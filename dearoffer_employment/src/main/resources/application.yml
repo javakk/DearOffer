@@ -1,12 +1,12 @@
 server:
-  port: 9006
+  port: 9004
 
 spring:
   application:
-    name: dearoffer-position
+    name: dearoffer-employment
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.230.129:3306/offer?characterEncoding=utf-8
+    url: jdbc:mysql://192.168.230.128:3306/offer?characterEncoding=utf-8
     username: root
     password: root
   jpa:
@@ -16,8 +16,15 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
   redis:
-    host: 192.168.230.129
+    host: 192.168.230.128
 
 redis:
   keys:
     position_view: 'position\:view\:'
+
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://localhost:8686/eureka
+  instance:
+    prefer‐ip‐address: true

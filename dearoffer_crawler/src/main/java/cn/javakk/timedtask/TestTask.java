@@ -50,7 +50,7 @@ public class TestTask {
     }
 
     @Transactional
-    @Scheduled(cron = "59 00 14 * * ?")
+    @Scheduled(cron = "59 15 14 * * ?")
     public void createTeachInInfo(){
         System.out.println("===开始执行");
 

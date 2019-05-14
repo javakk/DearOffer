@@ -3,6 +3,7 @@ package cn.javakk;
 import cn.javakk.util.IdWorker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -14,10 +15,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @SpringBootApplication
 @CrossOrigin
-public class CommentApplication {
+@EnableEurekaClient
+public class PostApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(CommentApplication.class);
+        SpringApplication.run(PostApplication.class);
     }
 
     @Bean

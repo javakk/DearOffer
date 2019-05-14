@@ -10,6 +10,8 @@ import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
+import java.util.List;
+
 /**
  * @Author: JavaKK
  * @Date: 2019/4/8 9:37
@@ -29,17 +31,19 @@ public class MysqlPipeline implements Pipeline {
 
         Salary salary = resultItems.get("salary");
 
-        TeachIn teachIn = resultItems.get("teachIn");
+        List<TeachIn> teachIns = resultItems.get("teachIn");
 
-        if (salary == null && teachIn == null) {
+        if (salary == null && (teachIns == null || teachIns.size() == 0)) {
             return;
         }
 
         if(salary != null) {
             salaryDao.save(salary);
         }
-        if (teachIn != null) {
-            teachInDao.save(teachIn);
+        if (teachIns != null && teachIns.size() > 0) {
+            for (TeachIn teachIn : teachIns) {
+                teachInDao.save(teachIn);
+            }
         }
 
 
