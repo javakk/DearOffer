@@ -1,0 +1,37 @@
+server:
+  port: 9999
+spring:
+  application:
+    name: dearoffer-zuul
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://127.0.0.1:8686/eureka/
+  instance:
+    prefer‐ip‐address: true
+
+zuul:
+  routes:
+    dearoffer-auth:
+      path: /auth/**
+      serviceId: dearoffer-auth
+    dearoffer-base:
+      path: /base/**
+      serviceId: dearoffer-base
+    dearoffer-company:
+      path: /company/**
+      serviceId: dearoffer-company
+    dearoffer-employment:
+      path: /employ/**
+      serviceId: dearoffer-employ
+    dearoffer-post:
+      path: /post/**
+      serviceId: dearoffer-post
+    dearoffer-resume:
+      path: /resume/**
+      serviceId: dearoffer-resume
+    dearoffer-search:
+      path: /search/**
+      serviceId: dearoffer-search

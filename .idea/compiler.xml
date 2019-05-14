@@ -17,6 +17,7 @@
         <module name="dearoffer_post" />
         <module name="dearoffer_resume" />
         <module name="dearoffer_search" />
+        <module name="dearoffer_zuul" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -42,6 +43,7 @@
       <module name="dearoffer_resume" options="-parameters" />
       <module name="dearoffer_salary" options="-parameters" />
       <module name="dearoffer_search" options="-parameters" />
+      <module name="dearoffer_zuul" options="-parameters" />
     </option>
   </component>
 </project>

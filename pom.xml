@@ -20,6 +20,8 @@
         <module>dearoffer_crawler</module>
         <module>dearoffer_message</module>
         <module>dearoffer_eureka</module>
+        <module>zuul</module>
+        <module>dearoffer_zuul</module>
     </modules>
 
     <parent>

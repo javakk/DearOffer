@@ -12,6 +12,7 @@
         <option value="$PROJECT_DIR$/dearoffer_interview_experience/pom.xml" />
         <option value="$PROJECT_DIR$/dearoffer_push/pom.xml" />
         <option value="$PROJECT_DIR$/dearoffer_salary/pom.xml" />
+        <option value="$PROJECT_DIR$/zuul/pom.xml" />
       </set>
     </option>
   </component>
