@@ -10,6 +10,7 @@
         <module name="dearoffer_base" />
         <module name="dearoffer_common" />
         <module name="dearoffer_company" />
+        <module name="dearoffer_config" />
         <module name="dearoffer_crawler" />
         <module name="dearoffer_employment" />
         <module name="dearoffer_eureka" />
@@ -32,6 +33,7 @@
       <module name="dearoffer_base" options="-parameters" />
       <module name="dearoffer_common" options="-parameters" />
       <module name="dearoffer_company" options="-parameters" />
+      <module name="dearoffer_config" options="-parameters" />
       <module name="dearoffer_crawler" options="-parameters" />
       <module name="dearoffer_employment" options="-parameters" />
       <module name="dearoffer_eureka" options="-parameters" />

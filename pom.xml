@@ -22,6 +22,7 @@
         <module>dearoffer_eureka</module>
         <module>zuul</module>
         <module>dearoffer_zuul</module>
+        <module>dearoffer-config</module>
     </modules>
 
     <parent>
