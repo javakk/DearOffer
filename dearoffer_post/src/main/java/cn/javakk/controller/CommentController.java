@@ -1,12 +1,16 @@
 package cn.javakk.controller;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import cn.javakk.client.AuthClient;
 import cn.javakk.pojo.Comment;
 import cn.javakk.pojo.PageResult;
 import cn.javakk.pojo.Result;
 import cn.javakk.pojo.StatusCode;
 import cn.javakk.util.UserThreadLocal;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -35,6 +39,9 @@ public class CommentController {
 	@Autowired
 	private RedisTemplate redisTemplate;
 
+	@Autowired
+	private AuthClient authClient;
+
 	/**
 	 * 根据ID查询
 	 * @param id ID
@@ -43,8 +50,18 @@ public class CommentController {
 	@RequestMapping(value="/{id}",method= RequestMethod.GET)
 	public Result findById(@PathVariable String id){
 		Map resultMap = new HashMap<String, Object>(2);
-		resultMap.put("parent", commentService.findById(id));
-		resultMap.put("subList", commentService.findByParentId(id));
+
+		Comment comment = commentService.findById(id);
+		resultMap.put("comment", comment);
+		if (comment != null) {
+			if (StringUtils.isNotBlank(comment.getPublisherId())) {
+				resultMap.put("publisherInfo", authClient.findById(comment.getPublisherId()));
+			} else {
+				resultMap.put("publisherInfo", UserThreadLocal.getCrawlerUser());
+			}
+		}
+
+
 		return new Result(true, StatusCode.OK,"查询成功", resultMap);
 	}
 
@@ -58,8 +75,26 @@ public class CommentController {
 	 */
 	@RequestMapping(value="{companyId}/{page}/{size}",method=RequestMethod.GET)
 	public Result findSearch(@PathVariable String companyId, @PathVariable int page, @PathVariable int size){
+
+		Map resultMap = new HashMap(16);
+
 		Page<Comment> pageList = commentService.findSearch(companyId, page, size);
-		return  new Result(true,StatusCode.OK,"查询成功",  new PageResult<Comment>(pageList.getTotalElements(), pageList.getContent()) );
+
+		List<String> publisherIds = new ArrayList<>();
+		if (pageList.getContent() != null && pageList.getContent().size() > 0) {
+			for (Comment comment : pageList.getContent()) {
+				if (StringUtils.isNotBlank(comment.getPublisherId())) {
+					publisherIds.add(comment.getPublisherId());
+				} else {
+					publisherIds.add(UserThreadLocal.getUserId());
+				}
+			}
+		}
+
+		resultMap.put("comment", new PageResult<Comment>(pageList.getTotalElements(), pageList.getContent()));
+		resultMap.put("publisherInfo", authClient.findByIds(publisherIds));
+
+		return  new Result(true,StatusCode.OK,"查询成功", resultMap);
 	}
 
 	/**

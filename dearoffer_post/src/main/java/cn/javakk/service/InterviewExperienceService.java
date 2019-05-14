@@ -30,6 +30,7 @@ public class InterviewExperienceService {
 
 	private static final String EXPERIENCE_TAG = "experienceTag";
 	private static final String CONTENT = "content";
+	private static final String COMPANY_ID = "companyId";
 	@Autowired
 	private InterviewExperienceDao interviewExperienceDao;
 	
@@ -98,6 +99,10 @@ public class InterviewExperienceService {
 			@Override
 			public Predicate toPredicate(Root<InterviewExperience> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> predicateList = new ArrayList<Predicate>();
+				// 面经字典
+				if (searchMap.get(COMPANY_ID)!=null && !"".equals(searchMap.get(COMPANY_ID))) {
+					predicateList.add(cb.equal(root.get(COMPANY_ID).as(String.class), (String)searchMap.get(COMPANY_ID)));
+				}
                 // 面经字典
                 if (searchMap.get(EXPERIENCE_TAG)!=null && !"".equals(searchMap.get(EXPERIENCE_TAG))) {
                 	predicateList.add(cb.like(root.get(EXPERIENCE_TAG).as(String.class), "%"+(String)searchMap.get(EXPERIENCE_TAG)+"%"));

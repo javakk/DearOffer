@@ -25,7 +25,6 @@ public class InterviewExperience implements Serializable{
 	 */
 	private String publisherId;
 
-	private String title;
 	/**
 	 * 经验字典
 	 */
@@ -40,16 +39,7 @@ public class InterviewExperience implements Serializable{
 	private Integer score;
 	private Integer status;
 
-	/**
-	 * 1待定 2通过 -1未通过
-	 */
-	private Integer passed;
 	private String companyId;
-
-	/**
-	 * 面试职位
-	 */
-	private String positionName;
 
 	private String content;
 	private java.util.Date createTime;
@@ -132,31 +122,8 @@ public class InterviewExperience implements Serializable{
 		return DateUtil.passedString(this.createTime);
 	}
 
-	public Integer getPassed() {
-		return passed;
-	}
-
-	public void setPassed(Integer passed) {
-		this.passed = passed;
-	}
-
-	public String getPositionName() {
-		return positionName;
-	}
-
-	public void setPositionName(String positionName) {
-		this.positionName = positionName;
-	}
-
 	public void setTimePassed(String timePassed) {
 		this.timePassed = timePassed;
 	}
 
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
 }

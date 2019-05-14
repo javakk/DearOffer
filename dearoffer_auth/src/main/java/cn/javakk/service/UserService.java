@@ -36,15 +36,17 @@ public class UserService {
 	private static final String PASSWORD = "password";
 	private static final String EMAIL = "email";
 	private static final String PHONE = "phone";
+	private static final String IDS = "ids";
 
 	@Autowired
 	private UserDao userDao;
-	
+
 	@Autowired
 	private IdWorker idWorker;
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
+
 	/**
 	 * 条件查询
 	 * @param whereMap
@@ -97,6 +99,10 @@ public class UserService {
 		userDao.deleteById(id);
 	}
 
+	public List<User> findByIds(List<String> ids) {
+		return userDao.findByIdIn(ids);
+	}
+
 	/**
 	 * 动态条件构建
 	 * @param searchMap
@@ -109,7 +115,6 @@ public class UserService {
 			@Override
 			public Predicate toPredicate(Root<User> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> predicateList = new ArrayList<Predicate>();
-                // 
                 if (searchMap.get(ID)!=null && !"".equals(searchMap.get(ID))) {
                 	predicateList.add(cb.like(root.get(ID).as(String.class), "%"+(String)searchMap.get(ID)+"%"));
                 }

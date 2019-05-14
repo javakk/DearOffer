@@ -59,6 +59,17 @@ public class UserController {
 	}
 
 	/**
+	 * 根据ids查询
+	 * @param ids
+	 * @return
+	 */
+	@RequestMapping(value = "/ids", method= RequestMethod.POST)
+	public Result findByIds(@RequestBody List<String> ids){
+		return new Result(userService.findByIds(ids));
+	}
+
+
+	/**
 	 * 修改
 	 * @param user
 	 */

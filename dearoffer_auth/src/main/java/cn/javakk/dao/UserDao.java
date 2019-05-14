@@ -4,6 +4,8 @@ import cn.javakk.pojo.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
+import java.util.List;
+
 /**
  * 数据访问接口
  * @author javakk
@@ -11,4 +13,5 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
  */
 public interface UserDao extends JpaRepository<User,String>,JpaSpecificationExecutor<User>{
 
+    List<User> findByIdIn(List<String> ids);
 }
