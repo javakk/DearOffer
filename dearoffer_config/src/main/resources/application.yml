@@ -6,6 +6,15 @@ spring:
       server:
         git:
           uri: https://github.com/javakk/dearoffer-config.git
+  rabbitmq:
+    host: 192.168.230.130
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus‐refresh
 
 server:
   port: 12000
