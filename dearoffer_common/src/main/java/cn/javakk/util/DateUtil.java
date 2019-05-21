@@ -72,13 +72,13 @@ public class DateUtil {
 
     }
 
-    public static void main(String[] args) throws InterruptedException {
-        try {
-            Date parse = DETAIL_FORMAT.parse("2019/04/14 12:39:29");
-            System.out.println(passedString(parse));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-    }
+//    public static void main(String[] args) throws InterruptedException {
+//        try {
+//            Date parse = DETAIL_FORMAT.parse("2019/04/14 12:39:29");
+//            System.out.println(passedString(parse));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 }
