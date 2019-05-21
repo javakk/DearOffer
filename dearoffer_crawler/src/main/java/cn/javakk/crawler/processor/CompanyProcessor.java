@@ -1,6 +1,6 @@
 package cn.javakk.crawler.processor;
 
-import cn.javakk.crawler.util.HttpClientDownloader;
+import cn.javakk.util.HttpClientDownloader;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;

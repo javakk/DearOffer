@@ -1,6 +1,6 @@
 package cn.javakk;
 
-import cn.javakk.crawler.util.TokenUtil;
+import cn.javakk.util.TokenUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;

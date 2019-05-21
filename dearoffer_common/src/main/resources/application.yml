@@ -1,11 +1,11 @@
-spring:
-  mail:
-    host: pop3.sohu.com
-    username: 92920@sohu.com
-    password: JavaKK1024
-    default-encoding: UTF-8
-
-mail:
-  fromMail:
-    addr: 92920@sohu.com
-
+#spring:
+#  mail:
+#    host: pop3.sohu.com
+#    username: 92920@sohu.com
+#    password: JavaKK1024
+#    default-encoding: UTF-8
+#
+#mail:
+#  fromMail:
+#    addr: 92920@sohu.com
+#

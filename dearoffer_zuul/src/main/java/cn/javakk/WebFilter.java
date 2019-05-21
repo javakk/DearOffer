@@ -1,6 +1,6 @@
 package cn.javakk;
 
-import cn.javakk.crawler.util.TokenUtil;
+import cn.javakk.util.TokenUtil;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;

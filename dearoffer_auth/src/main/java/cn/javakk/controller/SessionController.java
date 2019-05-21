@@ -4,7 +4,7 @@ import cn.javakk.pojo.Result;
 import cn.javakk.pojo.StatusCode;
 import cn.javakk.pojo.User;
 import cn.javakk.service.UserService;
-import cn.javakk.crawler.util.TokenUtil;
+import cn.javakk.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;

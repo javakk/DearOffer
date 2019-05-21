@@ -1,11 +1,8 @@
 package cn.javakk.service;
 
 import com.github.qcloudsms.SmsSingleSender;
-import com.github.qcloudsms.SmsSingleSenderResult;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 
 /**
  * @Author: javakk

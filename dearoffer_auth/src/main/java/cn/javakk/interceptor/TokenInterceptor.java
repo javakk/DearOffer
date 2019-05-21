@@ -1,6 +1,6 @@
 package cn.javakk.interceptor;
 
-import cn.javakk.crawler.util.TokenUtil;
+import cn.javakk.util.TokenUtil;
 import io.jsonwebtoken.Claims;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;

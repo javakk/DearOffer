@@ -3,9 +3,9 @@ package cn.javakk.controller;
 import cn.javakk.pojo.Result;
 import cn.javakk.pojo.StatusCode;
 import cn.javakk.pojo.User;
+import cn.javakk.service.MessageService;
 import cn.javakk.service.UserService;
-import cn.javakk.crawler.util.RandomUtil;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import cn.javakk.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -32,10 +32,10 @@ public class UserController {
 	private UserService userService;
 
 	@Autowired
-	private RedisTemplate redisTemplate;
+	private MessageService messageService;
 
 	@Autowired
-	private RabbitTemplate rabbitTemplate;
+	private RedisTemplate redisTemplate;
 
 	@Autowired
 	private HttpServletRequest request;
@@ -123,11 +123,12 @@ public class UserController {
 		redisTemplate.opsForValue().set(registerKeyFix + phone, code);
 		redisTemplate.expire(registerKeyFix + phone, Long.parseLong(registerEffectiveTime), TimeUnit.MINUTES);
 
-		Map messageMap = new HashMap<String, String>(2);
-		messageMap.put("mobile", phone);
-		messageMap.put("code", code);
 
-		rabbitTemplate.convertAndSend("register", messageMap);
+		try {
+			messageService.sendRegisterMessage(phone, code);
+		} catch (Exception e) {
+			// 发生异常
+		}
 		return new Result(true, StatusCode.OK, "获取成功", code);
 	}
 }

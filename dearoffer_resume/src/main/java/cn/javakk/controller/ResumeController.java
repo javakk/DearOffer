@@ -3,7 +3,7 @@ package cn.javakk.controller;
 import cn.javakk.pojo.Result;
 import cn.javakk.pojo.Resume;
 import cn.javakk.pojo.StatusCode;
-import cn.javakk.crawler.util.UserThreadLocal;
+import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

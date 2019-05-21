@@ -14,7 +14,6 @@
         <module name="dearoffer_crawler" />
         <module name="dearoffer_employment" />
         <module name="dearoffer_eureka" />
-        <module name="dearoffer_message" />
         <module name="dearoffer_post" />
         <module name="dearoffer_resume" />
         <module name="dearoffer_search" />
@@ -23,6 +22,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="dearoffer_interview_experience" target="1.8" />
+      <module name="dearoffer_message" target="1.8" />
       <module name="dearoffer_push" target="1.8" />
       <module name="dearoffer_salary" target="1.8" />
     </bytecodeTargetLevel>

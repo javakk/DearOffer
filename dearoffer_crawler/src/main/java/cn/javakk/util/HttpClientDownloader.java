@@ -1,4 +1,4 @@
-package cn.javakk.crawler.util;
+package cn.javakk.util;
 
 /**
  * @Author: JavaKK

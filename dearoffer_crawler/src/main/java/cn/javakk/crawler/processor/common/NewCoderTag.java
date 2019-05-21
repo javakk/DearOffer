@@ -1,7 +1,7 @@
 package cn.javakk.crawler.processor.common;
 
 import cn.javakk.crawler.processor.BaseProcessor;
-import cn.javakk.crawler.util.HttpClientDownloader;
+import cn.javakk.util.HttpClientDownloader;
 import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;

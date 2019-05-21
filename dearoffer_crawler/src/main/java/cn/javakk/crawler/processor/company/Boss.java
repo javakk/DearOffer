@@ -3,7 +3,7 @@ package cn.javakk.crawler.processor.company;
 import cn.javakk.entity.Company;
 import cn.javakk.crawler.pipeline.CompanyPipeline;
 import cn.javakk.crawler.processor.BaseProcessor;
-import cn.javakk.crawler.util.HttpClientDownloader;
+import cn.javakk.util.HttpClientDownloader;
 import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;

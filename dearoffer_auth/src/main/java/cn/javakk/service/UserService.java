@@ -12,9 +12,9 @@ import javax.persistence.criteria.Root;
 
 import cn.javakk.dao.UserDao;
 import cn.javakk.pojo.User;
-import cn.javakk.crawler.util.DateUtil;
-import cn.javakk.crawler.util.IdWorker;
-import cn.javakk.crawler.util.RandomUtil;
+import cn.javakk.util.DateUtil;
+import cn.javakk.util.IdWorker;
+import cn.javakk.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

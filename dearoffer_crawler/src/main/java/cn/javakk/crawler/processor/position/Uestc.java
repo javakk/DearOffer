@@ -1,9 +1,7 @@
 package cn.javakk.crawler.processor.position;
 
-import cn.javakk.crawler.pipeline.MysqlPipeline;
 import cn.javakk.crawler.processor.BaseProcessor;
-import cn.javakk.crawler.util.DateUtil;
-import cn.javakk.crawler.util.HttpClientDownloader;
+import cn.javakk.util.DateUtil;
 import cn.javakk.entity.Position;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +11,7 @@ import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
-import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.model.HttpRequestBody;
-import us.codecraft.webmagic.pipeline.ConsolePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.JsonPathSelector;
 import us.codecraft.webmagic.utils.HttpConstant;

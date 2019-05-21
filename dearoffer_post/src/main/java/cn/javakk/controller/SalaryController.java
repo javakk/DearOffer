@@ -5,7 +5,7 @@ import cn.javakk.pojo.Result;
 import cn.javakk.pojo.Salary;
 import cn.javakk.pojo.StatusCode;
 import cn.javakk.service.SalaryService;
-import cn.javakk.crawler.util.UserThreadLocal;
+import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;

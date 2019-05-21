@@ -1,4 +1,4 @@
-package cn.javakk.crawler.util;
+package cn.javakk.util;
 
 import com.alibaba.fastjson.JSON;
 import org.apache.commons.codec.digest.DigestUtils;

@@ -11,7 +11,7 @@ import javax.persistence.criteria.Root;
 
 import cn.javakk.dao.RoleDao;
 import cn.javakk.pojo.Role;
-import cn.javakk.crawler.util.IdWorker;
+import cn.javakk.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
