@@ -1,24 +1,17 @@
 package cn.javakk.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import cn.javakk.client.EmploymentClient;
 import cn.javakk.client.PostClient;
 import cn.javakk.pojo.Company;
 import cn.javakk.pojo.PageResult;
 import cn.javakk.pojo.Result;
 import cn.javakk.pojo.StatusCode;
+import cn.javakk.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import cn.javakk.service.CompanyService;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 控制器层

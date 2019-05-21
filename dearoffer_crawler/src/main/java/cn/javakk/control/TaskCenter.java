@@ -2,9 +2,12 @@ package cn.javakk.control;
 
 import cn.javakk.crawler.pipeline.CompanyPipeline;
 import cn.javakk.crawler.pipeline.MysqlPipeline;
+import cn.javakk.crawler.processor.interview.NewCoder;
+import cn.javakk.crawler.processor.interview.NewCoderTag;
 import cn.javakk.crawler.processor.position.Uestc;
 import cn.javakk.crawler.processor.salary.SalaryProcessor;
 import cn.javakk.crawler.processor.teachin.Job51;
+import cn.javakk.util.HttpClientDownloader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -13,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.model.HttpRequestBody;
+import us.codecraft.webmagic.pipeline.ConsolePipeline;
+import us.codecraft.webmagic.processor.PageProcessor;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +38,12 @@ public class TaskCenter {
 
     @Autowired
     private Uestc uestc;
+
+    @Autowired
+    private NewCoderTag newCoderTag;
+
+    @Autowired
+    private NewCoder newCoder;
 
     @Transactional
     @Scheduled(cron = "30 38 13 * * ?")
@@ -97,6 +108,50 @@ public class TaskCenter {
             spider.addRequest(request);
             spider.addPipeline(mysqlPipeline);
             spider.thread(8);
+            spider.setExitWhenComplete(true);
+            spider.start();
+            spider.stop();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    @Transactional
+    @Scheduled(cron = "30 02 22 * * ?")
+    public void createInterviewInfo(){
+        System.out.println("===牛客网Tag信息爬虫开始执行===");
+
+        String link = "https://www.nowcoder.com/discuss/tags?type=0";
+
+
+
+        try {
+            Spider spider = Spider.create(newCoderTag);
+            spider.addUrl(link);
+            spider.addPipeline(new ConsolePipeline());
+            spider.thread(8);
+            spider.setExitWhenComplete(true);
+            spider.start();
+            spider.stop();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
+    @Transactional
+    @Scheduled(cron = "55 24 22 * * ?")
+    public void createTagInfo(){
+        System.out.println("===牛客网面试信息爬虫开始执行===");
+
+        String link = "https://www.nowcoder.com/discuss/tag/639?type=2&order=3&pageSize=30&query=&page=1";;
+
+        try {
+            Spider spider = Spider.create(newCoder);
+            spider.addUrl(link);
+            spider.addPipeline(mysqlPipeline);
+            spider.thread(10);
             spider.setExitWhenComplete(true);
             spider.start();
             spider.stop();

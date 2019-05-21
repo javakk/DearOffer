@@ -1,17 +1,17 @@
 package cn.javakk.controller;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import cn.javakk.pojo.*;
 import cn.javakk.service.AppliedInfoService;
+import cn.javakk.service.PositionService;
 import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
-import cn.javakk.service.PositionService;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 控制器层

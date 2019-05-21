@@ -1,8 +1,10 @@
 package cn.javakk.crawler.pipeline;
 
+import cn.javakk.dao.InterviewDao;
 import cn.javakk.dao.PositionDao;
 import cn.javakk.dao.SalaryDao;
 import cn.javakk.dao.TeachInDao;
+import cn.javakk.entity.InterviewExperience;
 import cn.javakk.entity.Position;
 import cn.javakk.entity.Salary;
 import cn.javakk.entity.TeachIn;
@@ -30,24 +32,35 @@ public class MysqlPipeline implements Pipeline {
     private TeachInDao teachInDao;
     @Autowired
     private PositionDao positionDao;
+    @Autowired
+    private InterviewDao interviewDao;
 
     @Override
     public void process(ResultItems resultItems, Task task) {
         Salary salary = resultItems.get("salary");
         Position position = resultItems.get("position");
         List<TeachIn> teachIns = resultItems.get("teachIn");
+        InterviewExperience interview = resultItems.get("interview");
 
-        if(salary != null) {
-            salaryDao.save(salary);
-        }
-        if (position != null) {
-            positionDao.save(position);
-        }
-        if (teachIns != null && teachIns.size() > 0) {
-            for (TeachIn teachIn : teachIns) {
-                teachInDao.save(teachIn);
+        try {
+            if(salary != null) {
+                salaryDao.save(salary);
             }
+            if (position != null) {
+                positionDao.save(position);
+            }
+            if (interview != null) {
+                interviewDao.save(interview);
+            }
+            if (teachIns != null && teachIns.size() > 0) {
+                for (TeachIn teachIn : teachIns) {
+                    teachInDao.save(teachIn);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("保存数据异常===>" + e);
         }
+
 
     }
 

@@ -9,10 +9,8 @@
         <module name="dearoffer_auth" />
         <module name="dearoffer_base" />
         <module name="dearoffer_common" />
-        <module name="dearoffer_company" />
         <module name="dearoffer_config" />
         <module name="dearoffer_crawler" />
-        <module name="dearoffer_employment" />
         <module name="dearoffer_eureka" />
         <module name="dearoffer_post" />
         <module name="dearoffer_resume" />
@@ -21,6 +19,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="dearoffer_company" target="1.8" />
+      <module name="dearoffer_employment" target="1.8" />
       <module name="dearoffer_interview_experience" target="1.8" />
       <module name="dearoffer_message" target="1.8" />
       <module name="dearoffer_push" target="1.8" />

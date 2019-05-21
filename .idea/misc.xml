@@ -9,6 +9,8 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/dearoffer_company/pom.xml" />
+        <option value="$PROJECT_DIR$/dearoffer_employment/pom.xml" />
         <option value="$PROJECT_DIR$/dearoffer_interview_experience/pom.xml" />
         <option value="$PROJECT_DIR$/dearoffer_message/pom.xml" />
         <option value="$PROJECT_DIR$/dearoffer_push/pom.xml" />

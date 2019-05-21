@@ -1,5 +1,6 @@
-package cn.javakk.crawler.processor;
+package cn.javakk.crawler.processor.company;
 
+import cn.javakk.crawler.processor.BaseProcessor;
 import cn.javakk.util.HttpClientDownloader;
 import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
@@ -13,7 +14,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
  * @Date: 2019/3/20 10:35
  */
 @Component
-public class CompanyProcessor implements PageProcessor,BaseProcessor {
+public class CompanyProcessor implements PageProcessor, BaseProcessor {
     /**
      * 开始爬取索引
      */

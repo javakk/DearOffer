@@ -36,8 +36,8 @@ public class AppliedInfo {
      */
     private Integer appliedStatus;
     private Integer status;
-    private java.util.Date createTime;
-    private java.util.Date modifyTime;
+    private Date createTime;
+    private Date modifyTime;
 
     @Transient
     private String timePassed;

@@ -1,12 +1,17 @@
 package cn.javakk.crawler.processor.interview;
 
 import cn.javakk.crawler.pipeline.CompanyPipeline;
+import cn.javakk.crawler.pipeline.MysqlPipeline;
 import cn.javakk.crawler.processor.BaseProcessor;
+import cn.javakk.entity.InterviewExperience;
+import cn.javakk.util.DateUtil;
 import cn.javakk.util.HttpClientDownloader;
+import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.pipeline.ConsolePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 import java.text.SimpleDateFormat;
@@ -16,13 +21,14 @@ import java.util.*;
  * @Author: JavaKK
  * @Date: 2019/4/18 10:30
  */
+@Component
 public class NewCoder implements PageProcessor, BaseProcessor {
 
     /**
      * type:2 -> 经验
      * order:3 -> 最新发布
      */
-    private String LIST_LINK = "https://www.nowcoder.com/discuss/tag/138?type=2&order=3&pageSize=30&query=&page=";
+    private String LIST_LINK = "https://www.nowcoder.com/discuss/tag/639?type=2&order=3&pageSize=30&query=&page=";
 
     private final String LIST_FIX = "query";
 
@@ -47,16 +53,10 @@ public class NewCoder implements PageProcessor, BaseProcessor {
 
             List<String> createTimes = page.getHtml().css("p.feed-tip", "text").regex("\\d+[: -]\\d+[: -]\\d+").all();
 
-            Map collectLink = new HashMap<String, Boolean>(30);
-
-            collectPreprocess(collectLink, links, createTimes);
-
             if (links != null && !links.isEmpty()) {
                 for (String link : links) {
                     // 添加详情页采集任务
-                    if ((Boolean) collectLink.get(link)) {
-                        page.addTargetRequest(new Request(DOMAIN + link));
-                    }
+                    page.addTargetRequest(new Request(DOMAIN + link));
                 }
             }
 
@@ -67,12 +67,7 @@ public class NewCoder implements PageProcessor, BaseProcessor {
                 page.addTargetRequest(new Request(LIST_LINK + index));
             }
         } else {
-            // 标签采集:相当于公司的ID
-            List<String> tags = page.getHtml().css("a.tag-label", "href").regex("\\w+\\d+").all();
-            // 忽略没有标签的贴
-            if (tags == null || tags.isEmpty()) {
-                page.setSkip(true);
-            }
+
 
             List<String> content = page.getHtml().css("div.post-topic-main>div.post-topic-des *").all();
 
@@ -85,43 +80,26 @@ public class NewCoder implements PageProcessor, BaseProcessor {
                 buffer.append(temp.replaceAll("牛客", "DearOffer"));
             }
 
-            page.putField("tags", tags);
-            page.putField("content", buffer);
-            page.putField("url", page.getUrl().toString());
-        }
-    }
 
-    /**
-     * 采集预处理:增量采集、全量采集
-     * @param collectLink
-     * @param links
-     * @param createTimes
-     */
-    private void collectPreprocess(Map collectLink, List<String> links, List<String> createTimes) {
-        if (!fullCollect) {
-            // 增量采集
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-            for (int i = 0; i < links.size(); i++) {
-                String createTime = createTimes.get(i);
-                String link = links.get(i);
-                Date parsedTime = null;
-                try {
-                    if (createTime.contains(":")) {
-                        parsedTime = timeFormat.parse(createTime);
-                    } else {
-                        parsedTime = dateFormat.parse(createTime);
-                    }
-                } catch (Exception e) {
-                    // Catch Date Error
-                }
-                collectLink.put(link, parsedTime.getTime() > lastCollectTime.getTime());
-            }
-        } else {
-            // 全量采集
-            for (String link : links) {
-                collectLink.put(link, true);
-            }
+            InterviewExperience experience = new InterviewExperience();
+
+
+            experience.setId(UUID.randomUUID().toString());
+            experience.setStatus(1);
+            experience.setSource(page.getUrl().toString());
+            experience.setCreateTime(DateUtil.getNow());
+
+            experience.setCompanyName(page.getHtml().css("a.tag-label", "text").get());
+            experience.setTitle(page.getHtml().css("h1.discuss-title", "text").get());
+            experience.setPublisherHead(page.getHtml().css("a.answer-head>img", "src").get());
+            experience.setPublisherName(page.getHtml().css("a.post-name", "text").get());
+            experience.setPublisherDate(page.getHtml().css("span.post-time", "text").get());
+            experience.setLikeCount((long) new Random().nextInt(1000));
+            experience.setScore(new Random().nextInt(6));
+            experience.setContent(new String(buffer));
+
+
+            page.putField("interview", experience);
         }
     }
 
@@ -131,9 +109,9 @@ public class NewCoder implements PageProcessor, BaseProcessor {
     }
 
     public static void main(String[] args) {
-        String link = "https://www.nowcoder.com/discuss/tag/138?type=2&order=3&pageSize=30&query=&page=1";
+        String link = "https://www.nowcoder.com/discuss/tag/639?type=2&order=3&pageSize=30&query=&page=1";
         Spider.create(new NewCoder()).setDownloader(new HttpClientDownloader()).addUrl(link)
-                .addPipeline(new CompanyPipeline()).thread(THREAD_COUNT).start();
+                .addPipeline(new MysqlPipeline()).thread(THREAD_COUNT).start();
 
     }
 }
