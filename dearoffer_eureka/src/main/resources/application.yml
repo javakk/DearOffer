@@ -1,0 +1,12 @@
+server:
+  port: 8686
+spring:
+  rabbitmq:
+    host: 129.28.154.216
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://127.0.0.1:${server.port}/eureka/

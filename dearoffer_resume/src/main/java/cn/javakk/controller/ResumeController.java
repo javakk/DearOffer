@@ -3,16 +3,17 @@ package cn.javakk.controller;
 import cn.javakk.pojo.Result;
 import cn.javakk.pojo.Resume;
 import cn.javakk.pojo.StatusCode;
+import cn.javakk.service.ProjectExperienceService;
+import cn.javakk.service.RewardService;
+import cn.javakk.service.WorkExperienceService;
 import cn.javakk.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cn.javakk.service.ResumeService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 简历控制器层
@@ -26,6 +27,7 @@ public class ResumeController {
 
 	@Autowired
 	private ResumeService resumeService;
+
 
 
 	/**
@@ -89,6 +91,17 @@ public class ResumeController {
 		}
 		resumeService.deleteById(id);
 		return new Result(true,StatusCode.OK,"删除成功");
+	}
+
+
+	@GetMapping(value = "/check/{id}")
+	public Result check(@PathVariable String id) {
+		Boolean canRead = resumeService.canRead(id);
+		Map map = new HashMap<>();
+		if (canRead) {
+			map = resumeService.check(id);
+		}
+		return new Result(true, StatusCode.OK, "诊断完成", map);
 	}
 	
 }
