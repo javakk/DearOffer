@@ -1,7 +1,7 @@
 package cn.javakk.pojo;
 
 
-import cn.javakk.util.DateUtil;
+import cn.javakk.crawler.util.DateUtil;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

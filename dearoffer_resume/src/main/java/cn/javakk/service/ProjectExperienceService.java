@@ -10,9 +10,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import cn.javakk.pojo.ProjectExperience;
-import cn.javakk.util.DateUtil;
-import cn.javakk.util.IdWorker;
-import cn.javakk.util.UserThreadLocal;
+import cn.javakk.crawler.util.DateUtil;
+import cn.javakk.crawler.util.IdWorker;
+import cn.javakk.crawler.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;

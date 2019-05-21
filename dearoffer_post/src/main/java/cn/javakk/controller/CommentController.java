@@ -9,7 +9,7 @@ import cn.javakk.pojo.Comment;
 import cn.javakk.pojo.PageResult;
 import cn.javakk.pojo.Result;
 import cn.javakk.pojo.StatusCode;
-import cn.javakk.util.UserThreadLocal;
+import cn.javakk.crawler.util.UserThreadLocal;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

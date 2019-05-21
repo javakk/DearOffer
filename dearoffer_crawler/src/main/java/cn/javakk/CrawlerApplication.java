@@ -1,6 +1,6 @@
 package cn.javakk;
 
-import cn.javakk.util.IdWorker;
+import cn.javakk.crawler.util.IdWorker;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

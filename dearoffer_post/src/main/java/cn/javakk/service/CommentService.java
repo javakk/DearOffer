@@ -4,7 +4,7 @@ import java.util.*;
 
 
 import cn.javakk.pojo.Comment;
-import cn.javakk.util.IdWorker;
+import cn.javakk.crawler.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

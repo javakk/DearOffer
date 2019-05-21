@@ -2,9 +2,9 @@ package cn.javakk.service;
 
 import cn.javakk.dao.SalaryDao;
 import cn.javakk.pojo.Salary;
-import cn.javakk.util.DateUtil;
-import cn.javakk.util.IdWorker;
-import cn.javakk.util.UserThreadLocal;
+import cn.javakk.crawler.util.DateUtil;
+import cn.javakk.crawler.util.IdWorker;
+import cn.javakk.crawler.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;

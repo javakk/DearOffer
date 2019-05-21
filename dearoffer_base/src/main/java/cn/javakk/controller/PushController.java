@@ -1,16 +1,10 @@
 package cn.javakk.controller;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import cn.javakk.pojo.PageResult;
 import cn.javakk.pojo.Push;
 import cn.javakk.pojo.Result;
 import cn.javakk.pojo.StatusCode;
-import cn.javakk.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import cn.javakk.service.PushService;

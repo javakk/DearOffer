@@ -5,7 +5,7 @@ import java.util.Map;
 
 import cn.javakk.pojo.*;
 import cn.javakk.service.AppliedInfoService;
-import cn.javakk.util.UserThreadLocal;
+import cn.javakk.crawler.util.UserThreadLocal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.redis.core.RedisTemplate;

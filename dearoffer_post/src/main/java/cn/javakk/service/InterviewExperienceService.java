@@ -2,8 +2,8 @@ package cn.javakk.service;
 
 import cn.javakk.dao.InterviewExperienceDao;
 import cn.javakk.pojo.InterviewExperience;
-import cn.javakk.util.DateUtil;
-import cn.javakk.util.IdWorker;
+import cn.javakk.crawler.util.DateUtil;
+import cn.javakk.crawler.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

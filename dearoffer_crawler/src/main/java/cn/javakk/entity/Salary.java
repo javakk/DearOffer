@@ -1,6 +1,6 @@
 package cn.javakk.entity;
 
-import cn.javakk.util.DateUtil;
+import cn.javakk.crawler.util.DateUtil;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
