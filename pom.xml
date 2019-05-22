@@ -16,7 +16,6 @@
         <module>dearoffer_crawler</module>
         <module>dearoffer_eureka</module>
         <module>dearoffer_zuul</module>
-        <module>dearoffer_config</module>
     </modules>
 
     <parent>

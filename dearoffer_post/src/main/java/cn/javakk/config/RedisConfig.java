@@ -29,7 +29,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory factory) {
         StringRedisTemplate template = new StringRedisTemplate(factory);
         //定义key序列化方式
-        RedisSerializer<String> redisSerializer = new StringRedisSerializer();
+//        RedisSerializer<String> redisSerializer = new StringRedisSerializer();
         //定义value的序列化方式
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
         ObjectMapper om = new ObjectMapper();
