@@ -11,10 +11,6 @@
     <modules>
         <module>dearoffer_common</module>
         <module>dearoffer_auth</module>
-        <module>dearoffer_base</module>
-        <module>dearoffer_company</module>
-        <module>dearoffer_employment</module>
-        <module>dearoffer_resume</module>
         <module>dearoffer_post</module>
         <module>dearoffer_search</module>
         <module>dearoffer_crawler</module>
