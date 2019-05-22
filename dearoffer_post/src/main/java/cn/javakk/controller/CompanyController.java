@@ -1,6 +1,5 @@
 package cn.javakk.controller;
 
-import cn.javakk.client.PostClient;
 import cn.javakk.pojo.Company;
 import cn.javakk.pojo.PageResult;
 import cn.javakk.pojo.Result;
@@ -26,12 +25,6 @@ public class CompanyController {
     @Autowired
     private CompanyService companyService;
 
-    @Autowired
-    private PostClient postClient;
-
-    @Autowired
-    private EmploymentClient employmentClient;
-
     /**
      * 根据ID查询
      *
@@ -44,15 +37,9 @@ public class CompanyController {
         Company company = companyService.findById(id);
         resultMap.put("company", company);
 
-        // 点评信息
-        Result commentResult = postClient.findSearch(id, 1, 2);
-        resultMap.put("comment", commentResult.getData());
-
         // 查询关联职位信息
         Map positionSearchMap = new HashMap(4);
         positionSearchMap.put("companyId", id);
-        Result positionResult = employmentClient.findSearch(positionSearchMap, 1, 2);
-        resultMap.put("position", positionResult.getData());
 
         return new Result(true, StatusCode.OK, "查询成功", resultMap);
     }
