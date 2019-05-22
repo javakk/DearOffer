@@ -1,8 +1,5 @@
 server:
   port: 8686
-spring:
-  rabbitmq:
-    host: 129.28.154.216
 
 eureka:
   client:
