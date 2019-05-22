@@ -43,39 +43,43 @@ public class WebFilter extends ZuulFilter {
         System.out.println("zuul过滤器...");
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
-
-        String url = request.getRequestURL().toString();
-        if (url.indexOf(AUTH_FIX) > 0) {
-            System.out.println("已认证资源" + url);
-            return null;
-        }
-
-
         String token = request.getHeader("DearOffer");
-
-        if (StringUtils.isNotBlank(token)) {
-            Claims claims = null;
-            try {
-                claims = TokenUtil.parseToken(token);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-            if (claims != null) {
-                request.setAttribute("user", claims.get("user"));
-                requestContext.addZuulRequestHeader("DearOffer", token);
-                // TODO:@JAVAKK 将用户存入Redis
-                System.out.println("通过认证");
-                return null;
-            }
-        }
-
-        // 网关停止跳转
-        requestContext.setSendZuulResponse(false);
-        // 返回客户端代码
-        requestContext.setResponseStatusCode(401);
-        // 返回客户端信息
-        requestContext.getResponse().setContentType("text/html;charset=UTF‐8");
-        requestContext.setResponseBody("No Access");
+        requestContext.addZuulRequestHeader("DearOffer", token);
+//        RequestContext requestContext = RequestContext.getCurrentContext();
+//        HttpServletRequest request = requestContext.getRequest();
+//
+//        String url = request.getRequestURL().toString();
+//        if (url.indexOf(AUTH_FIX) > 0) {
+//            System.out.println("已认证资源" + url);
+//            return null;
+//        }
+//
+//
+//        String token = request.getHeader("DearOffer");
+//
+//        if (StringUtils.isNotBlank(token)) {
+//            Claims claims = null;
+//            try {
+//                claims = TokenUtil.parseToken(token);
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//            if (claims != null) {
+//                request.setAttribute("user", claims.get("user"));
+//                requestContext.addZuulRequestHeader("DearOffer", token);
+//                // TODO:@JAVAKK 将用户存入Redis
+//                System.out.println("通过认证");
+//                return null;
+//            }
+//        }
+//
+//        // 网关停止跳转
+//        requestContext.setSendZuulResponse(false);
+//        // 返回客户端代码
+//        requestContext.setResponseStatusCode(401);
+//        // 返回客户端信息
+//        requestContext.getResponse().setContentType("text/html;charset=UTF‐8");
+//        requestContext.setResponseBody("No Access");
         return null;
     }
 }

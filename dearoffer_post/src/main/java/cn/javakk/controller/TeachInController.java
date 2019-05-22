@@ -94,10 +94,10 @@ public class TeachInController {
 	 * 删除
 	 * @param id
 	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
-	public Result delete(@PathVariable String id ){
-		teachinService.deleteById(id);
-		return new Result(true,StatusCode.OK,"删除成功");
-	}
+//	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
+//	public Result delete(@PathVariable String id ){
+//		teachinService.deleteById(id);
+//		return new Result(true,StatusCode.OK,"删除成功");
+//	}
 	
 }

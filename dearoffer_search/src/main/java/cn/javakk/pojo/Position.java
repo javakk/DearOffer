@@ -30,30 +30,19 @@ public class Position {
     @Field(index = true, analyzer = "ik_smart_word", searchAnalyzer = "ik_smart_word")
     private String companyName;
 
-    /**
-     * 薪资起点
-     */
-    private String salaryLow;
-    /**
-     * 薪资终点
-     */
-    private String salaryHigh;
-    /**
-     * 学历字典
-     */
+    @Field(index = true, analyzer = "ik_smart_word", searchAnalyzer = "ik_smart_word")
+    private String introduction;
+
+
+
     private String degreeTag;
-    /**
-     * 所在城市字典
-     */
     private String cityTag;
-    /**
-     * 具体人数
-     */
-    private Integer total;
-    /**
-     * 申请开始
-     */
-    private java.util.Date applyStart;
+    private String kind;
+    private String scale;
+    private String way;
+    private String pageView;
+    private String industry;
+
 
 
     public String getId() {
@@ -80,21 +69,6 @@ public class Position {
         this.title = title;
     }
 
-    public String getSalaryLow() {
-        return salaryLow;
-    }
-
-    public void setSalaryLow(String salaryLow) {
-        this.salaryLow = salaryLow;
-    }
-
-    public String getSalaryHigh() {
-        return salaryHigh;
-    }
-
-    public void setSalaryHigh(String salaryHigh) {
-        this.salaryHigh = salaryHigh;
-    }
 
     public String getDegreeTag() {
         return degreeTag;
@@ -110,22 +84,6 @@ public class Position {
 
     public void setCityTag(String cityTag) {
         this.cityTag = cityTag;
-    }
-
-    public Integer getTotal() {
-        return total;
-    }
-
-    public void setTotal(Integer total) {
-        this.total = total;
-    }
-
-    public Date getApplyStart() {
-        return applyStart;
-    }
-
-    public void setApplyStart(Date applyStart) {
-        this.applyStart = applyStart;
     }
 
     public String getCompanyName() {

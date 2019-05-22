@@ -4,10 +4,10 @@ server:
 spring:
   application:
     name: dearoffer-post
-  data:
-    mongodb:
-      database: commentdb
-      host: 45.40.205.130
+#  data:
+#    mongodb:
+#      database: commentdb
+#      host: 45.40.205.130
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://180.76.57.187:3306/offer?characterEncoding=utf-8
