@@ -1,0 +1,26 @@
+server:
+  port: 9007
+
+
+
+spring:
+  application:
+    name: dearoffer-search
+  data:
+    elasticsearch:
+      cluster-nodes: http://45.40.205.130:9300
+  rabbitmq:
+    host: 129.28.154.216
+const:
+  index-search:
+    pageSize: 5
+
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://129.28.154.216:8686/eureka
+  instance:
+    prefer‐ip‐address: true
+
+rabbitmq:
+  host: 106.12.117.44

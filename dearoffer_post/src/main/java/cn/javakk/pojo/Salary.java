@@ -85,7 +85,7 @@ public class Salary implements Serializable{
 		this.id = id;
 	}
 
-	public String getCompanyId() {		
+	public String getCompanyId() {
 		return companyId;
 	}
 	public void setCompanyId(String companyId) {

@@ -1,0 +1,48 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: dearoffer-auth
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://180.76.57.187:3306/offer?characterEncoding=utf-8
+    username: root
+    password: JavaKK1024
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  redis:
+    host: 106.12.117.44
+  rabbitmq:
+    host: 129.28.154.216
+  cloud:
+    refresh:
+      refreshable: none
+
+tencent:
+  message:
+    appid: 1400204427
+    appkey: 741378178a6fcdb1065e4818e0a21038
+    smsSign: JavaKK
+    register:
+      templateId: 317057
+      effectiveTime: 2
+
+redis:
+  keys:
+    register_code_fix: 'register:code:phone_'
+
+message:
+  register:
+    effectiveTime: 2
+
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://129.28.154.216:8686/eureka
+  instance:
+    prefer‐ip‐address: true

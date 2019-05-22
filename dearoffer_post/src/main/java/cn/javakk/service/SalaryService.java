@@ -36,7 +36,7 @@ public class SalaryService {
 	private static final String CITY = "city";
 	private static final String DEGREE_TAG = "degreeTag";
 	private static final String POSITION_TITLE = "positionTitle";
-	private static final String SKILL_TAG = "skillTag";
+	private static final String DETAIL = "detail";
 
 	@Value("${redis.keys.salary_credibility_fix}")
 	private String credibilityKeyFix;
@@ -144,10 +144,6 @@ public class SalaryService {
                 if (searchMap.get(COMPANY_ID)!=null && !"".equals(searchMap.get(COMPANY_ID))) {
                 	predicateList.add(cb.like(root.get(COMPANY_ID).as(String.class), "%"+(String)searchMap.get(COMPANY_ID)+"%"));
                 }
-                // 学历字典
-                if (searchMap.get(DEGREE_TAG)!=null && !"".equals(searchMap.get(DEGREE_TAG))) {
-                	predicateList.add(cb.like(root.get(DEGREE_TAG).as(String.class), "%"+(String)searchMap.get(DEGREE_TAG)+"%"));
-                }
                 // 所属城市
                 if (searchMap.get(CITY)!=null && !"".equals(searchMap.get(CITY))) {
                 	predicateList.add(cb.like(root.get(CITY).as(String.class), "%"+(String)searchMap.get(CITY)+"%"));
@@ -156,9 +152,9 @@ public class SalaryService {
                 if (searchMap.get(POSITION_TITLE)!=null && !"".equals(searchMap.get(POSITION_TITLE))) {
                 	predicateList.add(cb.like(root.get(POSITION_TITLE).as(String.class), "%"+(String)searchMap.get(POSITION_TITLE)+"%"));
                 }
-                // 技能标签
-                if (searchMap.get(SKILL_TAG)!=null && !"".equals(searchMap.get(SKILL_TAG))) {
-                	predicateList.add(cb.like(root.get(SKILL_TAG).as(String.class), "%"+(String)searchMap.get(SKILL_TAG)+"%"));
+                // 细节
+                if (searchMap.get(DETAIL)!=null && !"".equals(searchMap.get(DETAIL))) {
+                	predicateList.add(cb.like(root.get(DETAIL).as(String.class), "%"+(String)searchMap.get(DETAIL)+"%"));
                 }
 				
 				return cb.and( predicateList.toArray(new Predicate[predicateList.size()]));

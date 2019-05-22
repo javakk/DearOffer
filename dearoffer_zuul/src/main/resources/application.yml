@@ -1,0 +1,26 @@
+server:
+  port: 9999
+
+spring:
+  application:
+    name: dearoffer-zuul
+  rabbitmq:
+    host: 129.28.154.216
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://129.28.154.216:8686/eureka/
+  instance:
+    prefer‐ip‐address: true
+
+zuul:
+  routes:
+    dearoffer-auth:
+      path: /base/**
+      serviceId: dearoffer-auth
+    dearoffer-post:
+      path: /post/**
+      serviceId: dearoffer-post
+    dearoffer-search:
+      path: /search/**
+      serviceId: dearoffer-search

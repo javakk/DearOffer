@@ -1,0 +1,36 @@
+server:
+  port: 9005
+
+spring:
+  application:
+    name: dearoffer-post
+  data:
+    mongodb:
+      database: commentdb
+      host: 45.40.205.130
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://180.76.57.187:3306/offer?characterEncoding=utf-8
+    username: root
+    password: JavaKK1024
+  redis:
+    host: 106.12.117.44
+
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  rabbitmq:
+    host: 129.28.154.216
+
+
+eureka:
+  client:
+    service‐url:
+      defaultZone: http://129.28.154.216:8686/eureka
+  instance:
+    prefer‐ip‐address: true
+
+redis:
+  keys:
+    salary_credibility_fix: 136
