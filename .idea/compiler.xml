@@ -16,34 +16,23 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="dearoffer_base" target="1.8" />
-      <module name="dearoffer_company" target="1.8" />
-      <module name="dearoffer_config" target="1.8" />
-      <module name="dearoffer_employment" target="1.8" />
-      <module name="dearoffer_interview_experience" target="1.8" />
-      <module name="dearoffer_message" target="1.8" />
-      <module name="dearoffer_push" target="1.8" />
-      <module name="dearoffer_resume" target="1.8" />
-      <module name="dearoffer_salary" target="1.8" />
+      <module name="dearoffer_auth" target="1.8" />
+      <module name="dearoffer_common" target="1.8" />
+      <module name="dearoffer_crawler" target="1.8" />
+      <module name="dearoffer_eureka" target="1.8" />
+      <module name="dearoffer_parent" target="1.8" />
+      <module name="dearoffer_post" target="1.8" />
+      <module name="dearoffer_search" target="1.8" />
+      <module name="dearoffer_zuul" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="dearoffer_auth" options="-parameters" />
-      <module name="dearoffer_base" options="-parameters" />
       <module name="dearoffer_common" options="-parameters" />
-      <module name="dearoffer_company" options="-parameters" />
-      <module name="dearoffer_config" options="-parameters" />
       <module name="dearoffer_crawler" options="-parameters" />
-      <module name="dearoffer_employment" options="-parameters" />
       <module name="dearoffer_eureka" options="-parameters" />
-      <module name="dearoffer_interview_experience" options="-parameters" />
-      <module name="dearoffer_message" options="-parameters" />
-      <module name="dearoffer_parent" options="-parameters" />
       <module name="dearoffer_post" options="-parameters" />
-      <module name="dearoffer_push" options="-parameters" />
-      <module name="dearoffer_resume" options="-parameters" />
-      <module name="dearoffer_salary" options="-parameters" />
       <module name="dearoffer_search" options="-parameters" />
       <module name="dearoffer_zuul" options="-parameters" />
     </option>
