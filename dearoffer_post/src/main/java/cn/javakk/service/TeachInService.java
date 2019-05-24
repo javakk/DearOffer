@@ -2,6 +2,7 @@ package cn.javakk.service;
 
 import cn.javakk.dao.TeachInDao;
 import cn.javakk.pojo.TeachIn;
+import cn.javakk.util.DateUtil;
 import cn.javakk.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,9 +14,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 服务层
@@ -131,4 +130,31 @@ public class TeachInService {
 
 	}
 
+    public Map appResult() {
+		Date today = DateUtil.getNow();
+		// 查询最近7天的信息
+		long endDateLong = today.getTime() + DateUtil.DAY * 7000;
+		Date endDate = new Date(endDateLong);
+
+		List<TeachIn> teachIns = teachinDao.findByStartDateBetween(today, endDate);
+
+		// 最大集合
+		Map<String, List<TeachIn>> resultMap = new HashMap(16);
+
+		if (teachIns != null && teachIns.size() > 0) {
+			for (TeachIn teachIn : teachIns) {
+				String key = teachIn.getSchoolName();
+				List<TeachIn> schoolTeachIns = resultMap.get(key);
+				if (schoolTeachIns != null && !schoolTeachIns.isEmpty()) {
+					schoolTeachIns.add(teachIn);
+					resultMap.put(key, schoolTeachIns);
+				} else {
+					ArrayList<TeachIn> temp = new ArrayList<>();
+					temp.add(teachIn);
+					resultMap.put(key, temp);
+				}
+			}
+		}
+		return resultMap;
+    }
 }

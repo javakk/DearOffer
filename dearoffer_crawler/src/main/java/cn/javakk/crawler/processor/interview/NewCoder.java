@@ -1,6 +1,5 @@
 package cn.javakk.crawler.processor.interview;
 
-import cn.javakk.crawler.pipeline.CompanyPipeline;
 import cn.javakk.crawler.pipeline.MysqlPipeline;
 import cn.javakk.crawler.processor.BaseProcessor;
 import cn.javakk.entity.InterviewExperience;
@@ -11,10 +10,8 @@ import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
-import us.codecraft.webmagic.pipeline.ConsolePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**

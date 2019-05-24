@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 实体类
@@ -16,7 +17,6 @@ public class TeachIn implements Serializable{
 
     @Id
     private String id;
-
 
     /**
      * 公司名
@@ -45,6 +45,25 @@ public class TeachIn implements Serializable{
     private java.util.Date modifyTime;
     private Integer status;
 
+    private String source;
+
+    private Date startDate;
+
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        this.source = source;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
 
     public String getId() {
         return id;
@@ -108,6 +127,7 @@ public class TeachIn implements Serializable{
     public void setStatus(Integer status) {
         this.status = status;
     }
+
 
 
 

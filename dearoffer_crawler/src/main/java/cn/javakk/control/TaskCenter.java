@@ -45,6 +45,9 @@ public class TaskCenter {
     @Autowired
     private NewCoder newCoder;
 
+    @Autowired
+    private Job51 job51;
+
     @Transactional
     @Scheduled(cron = "30 38 13 * * ?")
     public void createSalaryInfo(){
@@ -68,7 +71,7 @@ public class TaskCenter {
     }
 
     @Transactional
-    @Scheduled(cron = "59 15 14 * * ?")
+    @Scheduled(cron = "00 57 14 * * ?")
     public void createTeachInInfo(){
         System.out.println("===开始执行");
 
@@ -76,10 +79,10 @@ public class TaskCenter {
         Request request = new Request(url);
 
         try {
-            Spider spider = Spider.create(new Job51());
+            Spider spider = Spider.create(job51);
             spider.addRequest(request);
             spider.addPipeline(mysqlPipeline);
-            spider.thread(5);
+            spider.thread(8);
             spider.setExitWhenComplete(true);
             spider.start();
             spider.stop();

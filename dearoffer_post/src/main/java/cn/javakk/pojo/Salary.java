@@ -24,6 +24,7 @@ public class Salary implements Serializable{
 	 * 所属公司
 	 */
 	private String companyId;
+	private String companyName;
 	/**
 	 * 发布者
 	 */
@@ -78,7 +79,17 @@ public class Salary implements Serializable{
 	@Transient
 	private String timePassed;
 
-	public String getId() {		
+
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getId() {
 		return id;
 	}
 	public void setId(String id) {

@@ -1,8 +1,11 @@
 package cn.javakk.pojo;
 
+import cn.javakk.util.DateUtil;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.io.Serializable;
 
 /**
@@ -31,9 +34,13 @@ public class InterviewExperience implements Serializable{
 	private String companyId;//公司
 	private String content;//内容
 	private String source;//
+	@Transient
+	private String timePassed;
 	private java.util.Date createTime;//
 	private java.util.Date modifyTime;//
-
+	public String getTimePassed() {
+		return DateUtil.passedString(this.createTime);
+	}
 
 	public String getTitle() {
 		return title;

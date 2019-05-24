@@ -26,7 +26,7 @@ import java.util.Map;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/InterviewExperience")
+@RequestMapping("/interview")
 public class InterviewExperienceController {
 
     @Autowired

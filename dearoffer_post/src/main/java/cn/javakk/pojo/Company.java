@@ -70,7 +70,7 @@ public class Company implements Serializable{
 	/**
 	 * 注册日期
 	 */
-	private java.util.Date registerTime;
+	private String registerTime;
 	/**
 	 * 统一代码
 	 */
@@ -193,10 +193,10 @@ public class Company implements Serializable{
 		this.overtimeTag = overtimeTag;
 	}
 
-	public java.util.Date getRegisterTime() {
+	public String getRegisterTime() {
 		return registerTime;
 	}
-	public void setRegisterTime(java.util.Date registerTime) {
+	public void setRegisterTime(String registerTime) {
 		this.registerTime = registerTime;
 	}
 

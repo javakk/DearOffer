@@ -6,10 +6,15 @@ import cn.javakk.crawler.processor.BaseProcessor;
 import cn.javakk.util.DateUtil;
 import cn.javakk.util.HttpClientDownloader;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.stereotype.Component;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.pipeline.ConsolePipeline;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
@@ -27,7 +32,11 @@ import java.util.UUID;
  * @Author: JavaKK
  * @Date: 2019/4/16 16:40
  */
+//@Component
 public class Job51 implements PageProcessor, BaseProcessor {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     private Integer index = 1;
 
@@ -52,23 +61,19 @@ public class Job51 implements PageProcessor, BaseProcessor {
 
         List<TeachIn> teachIns = new ArrayList<>();
 
+        ValueOperations opsForValue = redisTemplate.opsForValue();
+
         for (Selectable node : nodes) {
             String startTime = node.css("div.time", "text").toString();
             if (StringUtils.isNotBlank(startTime)) {
-                String temp = startTime.replaceAll("\\W", "");
-                String regex = "yyyyMMdd";
-                SimpleDateFormat dateFormat = new SimpleDateFormat(regex);
                 try {
-                    Date createTime = dateFormat.parse(temp.substring(0, 8));
-                    long restDay = (createTime.getTime() - lastCollectTime.getTime()) / 1000 / 60 / 60 / 24;
-//                    boolean inScale = restDay >= 0 && restDay <= 21;
                     boolean inScale = true;
-                    if (inScale) {
-                        // 距离上次采集2周内的数据
+                    String id = node.css("div.butbox>span", "id").toString();
+                    if (inScale && opsForValue.get("crawler:" + id) == null) {
+
+                        opsForValue.set("crawler:" + id, page.getUrl().toString());
                         String cname = node.css("div.cname", "text").toString();
-
                         String schoolName = node.css("div.area>a", "text").toString();
-
                         String address = node.css("div.area>span", "text").toString();
 
                         TeachIn teachIn = new TeachIn();
@@ -79,20 +84,20 @@ public class Job51 implements PageProcessor, BaseProcessor {
                         teachIn.setSchoolName(schoolName);
                         teachIn.setAddress(address);
                         teachIn.setCreateTime(DateUtil.getNow());
+                        teachIn.setStartDate(new SimpleDateFormat("yyyy-MM-dd").parse(startTime.substring(1, 11)));
+                        teachIn.setSource(page.getUrl().toString());
                         teachIn.setStatus(1);
 
                         teachIns.add(teachIn);
-                    } else if (restDay < 0) {
-                        onCollect = false;
-                        break;
                     }
                 } catch (ParseException e) {
-                    // Parse Date Error
+                    System.out.println("===发生异常==>" + e);
                 }
             }
         }
 
         page.putField("teachIn", teachIns);
+        teachIns.clear();
         if (++index <= pageTotal && onCollect) {
             page.addTargetRequest(new Request(LINK + index));
         }
@@ -107,6 +112,6 @@ public class Job51 implements PageProcessor, BaseProcessor {
     public static void main(String[] args) throws ParseException {
         String link = "https://xy.51job.com/xy/xjh.php?provinceid=28&issuedate=&pageno=1";
         Spider.create(new Job51()).setDownloader(new HttpClientDownloader()).addUrl(link)
-                .addPipeline(new MysqlPipeline()).thread(THREAD_COUNT).start();
+                .addPipeline(new ConsolePipeline()).thread(THREAD_COUNT).start();
     }
 }

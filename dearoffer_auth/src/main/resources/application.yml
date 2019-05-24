@@ -35,7 +35,7 @@ tencent:
 redis:
   keys:
     register_code_fix: 'register:code:phone_'
-
+    push_items: 'push:items'
 message:
   register:
     effectiveTime: 2
@@ -46,3 +46,5 @@ eureka:
       defaultZone: http://129.28.154.216:8686/eureka
   instance:
     prefer‐ip‐address: true
+
+

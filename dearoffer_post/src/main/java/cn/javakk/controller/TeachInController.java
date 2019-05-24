@@ -19,22 +19,13 @@ import java.util.Map;
  */
 @RestController
 @CrossOrigin
-@RequestMapping("/TeachIn")
+@RequestMapping("/teachin")
 public class TeachInController {
 
 	@Autowired
 	private TeachInService teachinService;
 	
-	
-	/**
-	 * 查询全部数据
-	 * @return
-	 */
-	@RequestMapping(method= RequestMethod.GET)
-	public Result findAll(){
-		return new Result(true, StatusCode.OK,"查询成功",teachinService.findAll());
-	}
-	
+
 	/**
 	 * 根据ID查询
 	 * @param id ID
@@ -68,36 +59,10 @@ public class TeachInController {
     public Result findSearch( @RequestBody Map searchMap){
         return new Result(true,StatusCode.OK,"查询成功",teachinService.findSearch(searchMap));
     }
-	
-	/**
-	 * 增加
-	 * @param teachIn
-	 */
-	@RequestMapping(method=RequestMethod.POST)
-	public Result add(@RequestBody TeachIn teachIn  ){
-		teachinService.add(teachIn);
-		return new Result(true,StatusCode.OK,"增加成功");
+
+    @GetMapping(value = "/new")
+	public Result appResult(){
+		return new Result(true,StatusCode.OK,"查询成功",teachinService.appResult());
 	}
-	
-	/**
-	 * 修改
-	 * @param teachIn
-	 */
-	@RequestMapping(value="/{id}",method= RequestMethod.PUT)
-	public Result update(@RequestBody TeachIn teachIn, @PathVariable String id ){
-		teachIn.setId(id);
-		teachinService.update(teachIn);
-		return new Result(true,StatusCode.OK,"修改成功");
-	}
-	
-	/**
-	 * 删除
-	 * @param id
-	 */
-//	@RequestMapping(value="/{id}",method= RequestMethod.DELETE)
-//	public Result delete(@PathVariable String id ){
-//		teachinService.deleteById(id);
-//		return new Result(true,StatusCode.OK,"删除成功");
-//	}
 	
 }
