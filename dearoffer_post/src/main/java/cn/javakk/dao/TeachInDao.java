@@ -16,7 +16,7 @@ import java.util.List;
 public interface TeachInDao extends JpaRepository<TeachIn,String>,JpaSpecificationExecutor<TeachIn>{
 
     /**
-     *
+     * 符合日期的宣讲会查询
      * @param today
      * @param endDate
      * @return

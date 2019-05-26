@@ -28,10 +28,10 @@ public interface BaseProcessor {
     /**
      * 是否全量采集
      */
-    Boolean fullCollect = true;
+    Boolean FULL_COLLECT = true;
 
     /**
      * 上次采集时间
      */
-    Date lastCollectTime = new Date();
+    Date LAST_COLLECT_TIME = new Date();
 }

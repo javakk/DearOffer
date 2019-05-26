@@ -63,7 +63,6 @@ public class Boss implements PageProcessor, BaseProcessor {
             } else if (index == 10) {
                 return;
             }
-//            page.addTargetRequest(listUrlPre + typeIndex + listUrlPage + index + listUrlEnd);
             page.addTargetRequest(cityUrl + index + cityUrlEnd);
         } else {
 

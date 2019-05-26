@@ -37,16 +37,23 @@ public class Company {
     /**
      * 规模字典
      */
+    @Field()
     private String companyScaleTag;
-    /**
-     * 融资字典
-     */
+
     private String financingTag;
+    private String industryTag;
     /**
      * 综合得分
      */
     private Float score;
 
+    public String getIndustryTag() {
+        return industryTag;
+    }
+
+    public void setIndustryTag(String industryTag) {
+        this.industryTag = industryTag;
+    }
 
     public String getId() {
         return id;

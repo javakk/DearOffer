@@ -93,7 +93,7 @@ public class ResumeController {
 	@GetMapping(value = "/check/{id}")
 	public Result check(@PathVariable String id) {
 		Boolean canRead = resumeService.canRead(id);
-		Map map = new HashMap<>();
+		Map map = new HashMap<>(16);
 		if (canRead) {
 			map = resumeService.check(id);
 		}

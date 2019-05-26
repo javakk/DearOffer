@@ -15,9 +15,19 @@ import java.util.List;
 
 @FeignClient("dearoffer-auth")
 public interface AuthClient {
+    /**
+     * 远程调用
+     * @param ids
+     * @return
+     */
     @RequestMapping(value = "user/ids/", method= RequestMethod.POST)
     public Result findByIds(List<String> ids);
 
+    /**
+     * 远程调用
+     * @param id
+     * @return
+     */
     @RequestMapping(value="user/{id}",method= RequestMethod.GET)
     public Result findById(@PathVariable String id);
 

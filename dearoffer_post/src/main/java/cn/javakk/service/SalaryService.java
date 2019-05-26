@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -32,9 +33,8 @@ import java.util.Optional;
 public class SalaryService {
 
 	private static final String COMPANY_ID = "companyId";
-	private static final String ID = "id";
 	private static final String CITY = "city";
-	private static final String DEGREE_TAG = "degreeTag";
+	private static final String COMPANY_NAME = "companyName";
 	private static final String POSITION_TITLE = "positionTitle";
 	private static final String DETAIL = "detail";
 
@@ -67,7 +67,8 @@ public class SalaryService {
 	 */
 	public Page<Salary> findSearch(Map whereMap, int page, int size) {
 		Specification<Salary> specification = createSpecification(whereMap);
-		PageRequest pageRequest =  PageRequest.of(page-1, size);
+		Sort sort = new Sort(Sort.Direction.DESC, "createTime");
+		PageRequest pageRequest =  PageRequest.of(page-1, size,sort);
 		return salaryDao.findAll(specification, pageRequest);
 	}
 
@@ -137,8 +138,8 @@ public class SalaryService {
 			@Override
 			public Predicate toPredicate(Root<Salary> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
 				List<Predicate> predicateList = new ArrayList<Predicate>();
-                if (searchMap.get(ID)!=null && !"".equals(searchMap.get(ID))) {
-                	predicateList.add(cb.like(root.get(ID).as(String.class), "%"+(String)searchMap.get(ID)+"%"));
+                if (searchMap.get(COMPANY_NAME)!=null && !"".equals(searchMap.get(COMPANY_NAME))) {
+                	predicateList.add(cb.like(root.get(COMPANY_NAME).as(String.class), "%"+(String)searchMap.get(COMPANY_NAME)+"%"));
                 }
                 // 所属公司
                 if (searchMap.get(COMPANY_ID)!=null && !"".equals(searchMap.get(COMPANY_ID))) {

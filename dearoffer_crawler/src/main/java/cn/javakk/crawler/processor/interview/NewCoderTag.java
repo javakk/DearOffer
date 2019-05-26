@@ -24,7 +24,7 @@ import java.util.List;
 @Component
 public class NewCoderTag implements PageProcessor, BaseProcessor {
 
-    private String LIST_LINK = "https://www.nowcoder.com/discuss/tags?type=0";
+    private final String LIST_LINK = "https://www.nowcoder.com/discuss/tags?type=0";
 
     private final String DOMAIN = "https://www.nowcoder.com/";
 

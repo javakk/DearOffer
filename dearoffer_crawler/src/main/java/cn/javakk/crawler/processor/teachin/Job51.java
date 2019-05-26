@@ -32,7 +32,7 @@ import java.util.UUID;
  * @Author: JavaKK
  * @Date: 2019/4/16 16:40
  */
-//@Component
+@Component
 public class Job51 implements PageProcessor, BaseProcessor {
 
     @Autowired

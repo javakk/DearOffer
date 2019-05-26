@@ -31,6 +31,7 @@ public class SessionController {
 
     @PostMapping("/login")
     public Result login(@RequestBody HashMap<String, String> map) {
+        Map<String, String> resultMap = new HashMap<>(16);
         if (map != null && !map.isEmpty()) {
             Map searchMap = new HashMap<String, String>(1);
             searchMap.put("phone", map.get("phone"));
@@ -40,7 +41,9 @@ public class SessionController {
                 boolean matched = passwordEncoder.matches(map.get("password"), search.get(0).getPassword());
                 if (matched) {
                     String token = TokenUtil.createToken(search.get(0).getId(), search.get(0).getUserName(), search.get(0));
-                    return new Result(true, StatusCode.OK, "登陆成功", token);
+                    resultMap.put("userName", search.get(0).getUserName());
+                    resultMap.put("token", token);
+                    return new Result(true, StatusCode.OK, "登陆成功", resultMap);
                 }
             }
         }

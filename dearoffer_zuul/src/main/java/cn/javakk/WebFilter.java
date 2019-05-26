@@ -6,6 +6,9 @@ import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
 import io.jsonwebtoken.Claims;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +22,11 @@ import javax.servlet.http.HttpServletRequest;
 public class WebFilter extends ZuulFilter {
 
     private final String AUTH_FIX = "/auth";
+    private final String POST_FIX = "/post";
+    private final String SEARCH_FIX = "/search";
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public String filterType() {
@@ -40,11 +48,24 @@ public class WebFilter extends ZuulFilter {
 
     @Override
     public Object run() throws ZuulException {
-        System.out.println("zuul过滤器...");
+        ValueOperations opsForValue = redisTemplate.opsForValue();
+
+        opsForValue.increment("zuul:view", 1);
+
         RequestContext requestContext = RequestContext.getCurrentContext();
         HttpServletRequest request = requestContext.getRequest();
         String token = request.getHeader("DearOffer");
         requestContext.addZuulRequestHeader("DearOffer", token);
+
+        String requestUrl = request.getRequestURL().toString();
+        if (requestUrl.contains(AUTH_FIX)) {
+            opsForValue.increment("zuul:auth", 1);
+        } else if (requestUrl.contains(POST_FIX)) {
+            opsForValue.increment("zuul:post", 1);
+        } else if (requestUrl.contains(SEARCH_FIX)) {
+            opsForValue.increment("zuul:search", 1);
+        }
+
 //        RequestContext requestContext = RequestContext.getCurrentContext();
 //        HttpServletRequest request = requestContext.getRequest();
 //

@@ -44,7 +44,6 @@ public class Position {
     private String industry;
 
 
-
     public String getId() {
         return id;
     }
@@ -69,6 +68,21 @@ public class Position {
         this.title = title;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getIntroduction() {
+        return introduction;
+    }
+
+    public void setIntroduction(String introduction) {
+        this.introduction = introduction;
+    }
 
     public String getDegreeTag() {
         return degreeTag;
@@ -86,11 +100,43 @@ public class Position {
         this.cityTag = cityTag;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getKind() {
+        return kind;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setKind(String kind) {
+        this.kind = kind;
+    }
+
+    public String getScale() {
+        return scale;
+    }
+
+    public void setScale(String scale) {
+        this.scale = scale;
+    }
+
+    public String getWay() {
+        return way;
+    }
+
+    public void setWay(String way) {
+        this.way = way;
+    }
+
+    public String getPageView() {
+        return pageView;
+    }
+
+    public void setPageView(String pageView) {
+        this.pageView = pageView;
+    }
+
+    public String getIndustry() {
+        return industry;
+    }
+
+    public void setIndustry(String industry) {
+        this.industry = industry;
     }
 }

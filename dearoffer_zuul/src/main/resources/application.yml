@@ -4,8 +4,8 @@ server:
 spring:
   application:
     name: dearoffer-zuul
-  rabbitmq:
-    host: 129.28.154.216
+  redis:
+    host: 106.12.117.44
 eureka:
   client:
     serviceUrl:

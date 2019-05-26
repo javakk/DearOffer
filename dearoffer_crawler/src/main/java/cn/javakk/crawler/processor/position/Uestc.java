@@ -63,12 +63,12 @@ public class Uestc implements PageProcessor, BaseProcessor {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy-MM-dd");
             for (String node : nodes) {
                 String id = new JsonPathSelector("$.rec_No").select(node);
-                String rec_publish_time = new JsonPathSelector("$.rec_publish_time").select(node);
+                String recPublishTime = new JsonPathSelector("$.rec_publish_time").select(node);
 
                 // 增量采集
-                if (StringUtils.isNotBlank(rec_publish_time)) {
+                if (StringUtils.isNotBlank(recPublishTime)) {
                     try {
-                        Date publishedDate = simpleDateFormat.parse(rec_publish_time);
+                        Date publishedDate = simpleDateFormat.parse(recPublishTime);
                         DateUtil.howLongPassed(publishedDate);
                     } catch (ParseException e) {
                         e.printStackTrace();

@@ -6,6 +6,7 @@ import cn.javakk.util.IdWorker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +57,8 @@ public class CompanyService {
 	 */
 	public Page<Company> findSearch(Map whereMap, int page, int size) {
 		Specification<Company> specification = createSpecification(whereMap);
-		PageRequest pageRequest =  PageRequest.of(page-1, size);
+		Sort sort = new Sort(Sort.Direction.DESC, "createTime");
+		PageRequest pageRequest =  PageRequest.of(page-1, size,sort);
 		return companyDao.findAll(specification, pageRequest);
 	}
 

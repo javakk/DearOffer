@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CompanyDao extends JpaRepository<Company, String> {
     /**
      *
+     * 通过来源查询
      * @param sourceId
      * @return
      */

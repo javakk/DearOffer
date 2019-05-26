@@ -25,7 +25,7 @@ public class NewCoder implements PageProcessor, BaseProcessor {
      * type:2 -> 经验
      * order:3 -> 最新发布
      */
-    private String LIST_LINK = "https://www.nowcoder.com/discuss/tag/639?type=2&order=3&pageSize=30&query=&page=";
+    private final String LIST_LINK = "https://www.nowcoder.com/discuss/tag/639?type=2&order=3&pageSize=30&query=&page=";
 
     private final String LIST_FIX = "query";
 

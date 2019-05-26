@@ -66,7 +66,6 @@ public class SalaryProcessor implements PageProcessor, BaseProcessor {
             List<String> tags = page.getHtml().css("span.badge", "text").all();
 
             int pageView = Integer.parseInt(tags.get(0));
-//            String degree = tags.get(3);
             int credibility = Integer.parseInt(tags.get(1)) + Integer.parseInt(tags.get(2));
 
             Salary salaryPojo = new Salary();
@@ -78,7 +77,6 @@ public class SalaryProcessor implements PageProcessor, BaseProcessor {
             salaryPojo.setPositionTitle(position);
             salaryPojo.setBonus(salary);
             salaryPojo.setDetail(other);
-//            salaryPojo.setDegreeTag(degree);
             salaryPojo.setCredibility(credibility);
             salaryPojo.setCreateTime(DateUtil.getNow());
             salaryPojo.setStatus(1);

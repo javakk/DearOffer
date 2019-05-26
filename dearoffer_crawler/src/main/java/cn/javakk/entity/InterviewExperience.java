@@ -16,23 +16,23 @@ public class InterviewExperience implements Serializable{
 
 
 	@Id
-	private String id;//
+	private String id;
 
 
 	private String title;
-	private String publisherId;//发布者
-	private String publisherName;//
-	private String publisherHead;//
-	private String publisherDate;//
-	private Long likeCount;//点赞
-	private Integer score;//体验评分
-	private Integer status;//
-	private String companyName;//公司名称
-	private String companyId;//公司
-	private String content;//内容
-	private String source;//
-	private java.util.Date createTime;//
-	private java.util.Date modifyTime;//
+	private String publisherId;
+	private String publisherName;
+	private String publisherHead;
+	private String publisherDate;
+	private Long likeCount;
+	private Integer score;
+	private Integer status;
+	private String companyName;
+	private String companyId;
+	private String content;
+	private String source;
+	private java.util.Date createTime;
+	private java.util.Date modifyTime;
 
 
 	public String getTitle() {

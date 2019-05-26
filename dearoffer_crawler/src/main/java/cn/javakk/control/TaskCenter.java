@@ -48,7 +48,7 @@ public class TaskCenter {
     @Autowired
     private Job51 job51;
 
-    @Transactional
+
     @Scheduled(cron = "30 38 13 * * ?")
     public void createSalaryInfo(){
         System.out.println("===工资信息爬虫开始执行===");
@@ -70,7 +70,7 @@ public class TaskCenter {
 
     }
 
-    @Transactional
+
     @Scheduled(cron = "00 57 14 * * ?")
     public void createTeachInInfo(){
         System.out.println("===开始执行");
@@ -92,7 +92,7 @@ public class TaskCenter {
 
     }
 
-    @Transactional
+
     @Scheduled(cron = "40 03 16 * * ?")
     public void createPositionInfo(){
         System.out.println("===职位信息爬虫开始执行===");
@@ -120,7 +120,7 @@ public class TaskCenter {
 
     }
 
-    @Transactional
+
     @Scheduled(cron = "30 02 22 * * ?")
     public void createInterviewInfo(){
         System.out.println("===牛客网Tag信息爬虫开始执行===");
@@ -143,7 +143,7 @@ public class TaskCenter {
 
     }
 
-    @Transactional
+
     @Scheduled(cron = "55 24 22 * * ?")
     public void createTagInfo(){
         System.out.println("===牛客网面试信息爬虫开始执行===");

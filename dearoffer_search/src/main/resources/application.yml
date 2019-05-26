@@ -16,8 +16,8 @@ const:
 eureka:
   client:
     service‐url:
-#      defaultZone: http://129.28.154.216:8686/eureka
-      defaultZone: http://localhost:8686/eureka
+      defaultZone: http://129.28.154.216:8686/eureka
+#      defaultZone: http://localhost:8686/eureka
   instance:
     prefer‐ip‐address: true
 

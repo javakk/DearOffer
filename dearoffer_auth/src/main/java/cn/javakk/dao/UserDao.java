@@ -13,5 +13,10 @@ import java.util.List;
  */
 public interface UserDao extends JpaRepository<User,String>,JpaSpecificationExecutor<User>{
 
+    /**
+     *
+     * @param ids
+     * @return
+     */
     List<User> findByIdIn(List<String> ids);
 }
