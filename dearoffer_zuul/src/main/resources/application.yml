@@ -22,7 +22,7 @@ zuul:
       path: /post/**
       serviceId: dearoffer-post
     dearoffer-search:
-      path: /search/**
+      path: /es/**
       serviceId: dearoffer-search
   host:
     connect-timeout-millis: 8000
