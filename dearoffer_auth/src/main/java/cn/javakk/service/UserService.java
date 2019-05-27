@@ -36,7 +36,6 @@ public class UserService {
 	private static final String PASSWORD = "password";
 	private static final String EMAIL = "email";
 	private static final String PHONE = "phone";
-	private static final String IDS = "ids";
 
 	@Autowired
 	private UserDao userDao;

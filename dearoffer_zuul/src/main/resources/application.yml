@@ -24,3 +24,10 @@ zuul:
     dearoffer-search:
       path: /search/**
       serviceId: dearoffer-search
+  host:
+    connect-timeout-millis: 8000
+    socket-timeout-millis: 8000
+ribbon:
+  ReadTimeout: 8000
+  ConnectTimeout: 8000
+
